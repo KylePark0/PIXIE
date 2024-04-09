@@ -1,3 +1,4 @@
+# Electrical
 This path contains the eletrical design source files used to create the PIXIE Printed Circuit Board (PCB).
 
 ### PIXIE PCB
