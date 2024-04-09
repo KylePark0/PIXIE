@@ -1,3 +1,4 @@
+## Firmware
 This path contains the firmware for the PIXIE, in the form of a Texas Instruments (TI) Code Composer Studio (CCS) project.
 
 TI CCS is an all-in-one IDE and debugger for the MSP430 platform of microcontrollers, among others, based on the Eclipse IDE.
