@@ -1,0 +1,579 @@
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    1
+
+       1            ;=====================================================================================================
+       2            ;/*
+       3            ;* dsp.asm
+       4            ;*
+       5            ;*  Created on: May 5, 2023
+       6            ;*      Author: K. Park
+       7            ;*
+       8            ;*      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attri
+       9            ;*      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribu
+      10            ;*      users cite the materials appropriately, provide a link to the Creative Commons license, and cl
+      11            ;*      were made to the original content. No warranties are provided under this license.
+      12            ;*
+      13            ;*              "dsp.asm" is an MSP430 Assembly code block written to handle the PIXIE's Lock-in ampli
+      14            ;*              algorithm, making use of Q3.28 formatted Fixed Point arithmetic and the processor's 32
+      15            ;*              speed and precision.
+      16            ;*
+      17            ;*              It is *highly recommended* that users leave this code as-is unless they are absolutely
+      18            ;*              the extended instructions, MPY, fixed point arithmetic, and lattice wave digital filte
+      19            ;*
+      20            ;*/
+      21            ;=====================================================================================================
+      22                                                    .cdecls C,NOLIST,"msp430.h"                                   
+      23            ;=====================================================================================================
+      24            ; Global Variables from C
+      25            ;=====================================================================================================
+      26                                                            .ref    MAIN_ADCBuffer
+      27                                                            .ref    MAIN_LockInXRef
+      28                                                            .ref    MAIN_LockInYRef
+      29            
+      30                                                            .ref    MAIN_FilterTap1
+      31                                                            .ref    MAIN_FilterTap2
+      32                                                            .ref    MAIN_XFilterTap1
+      33                                                            .ref    MAIN_XFilterTap2
+      34                                                            .ref    MAIN_YFilterTap1
+      35                                                            .ref    MAIN_YFilterTap2
+      36            
+      37                                                            .ref    MAIN_XOut
+      38                                                            .ref    MAIN_YOut
+      39            
+      40                                                            .ref    MAIN_XAcc
+      41                                                            .ref    MAIN_YAcc
+      42            
+      43            ;=====================================================================================================
+      44            ; Local Constants
+      45            ;=====================================================================================================
+      46      50C0  DSP_FilterAlpha1_L:             .equ    0x50C0                                                        
+      47      09BE  DSP_FilterAlpha1_H:             .equ    0x09BE                                                        
+      48                                                                                                                  
+      49            
+      50      26E9  DSP_FilterAlpha2_L:             .equ    0x26E9                                                        
+      51      0031  DSP_FilterAlpha2_H:             .equ    0x0031                                                        
+      52                                                                                                                  
+      53            
+      54      C068  DSP_TransientCoeff1_L:  .equ    0xC068                                                                
+      55      FB55  DSP_TransientCoeff1_H:  .equ    0xFB55                                                                
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    2
+
+      56                                                                                                                  
+      57            
+      58      80C8  DSP_TransientCoeff2_L:  .equ    0x80C8                                                                
+      59      8510  DSP_TransientCoeff2_H:  .equ    0x8510                                                                
+      60                                                                                                                  
+      61            
+      62      52D0  DSP_FilterA_L:                  .equ    0x52D0                                                        
+      63      7E70  DSP_FilterA_H:                  .equ    0x7E70                                                        
+      64            
+      65      D698  DSP_FilterB_L:                  .equ    0xD698                                                        
+      66      00C7  DSP_FilterB_H:                  .equ    0x00C7                                                        
+      67            
+      68            ;=====================================================================================================
+      69            ; void DSP_FilterLoop(uint16_t in)
+      70            ;
+      71            ;       A single subroutine that handles PIXIE's entire Lock-in Amplification / DSP block chain. The s
+      72            ;       whether a not-yet-implemented startup-transient reduction technique is applied before the firs
+      73            ;       All other inputs are taken from globally accesible symbols defined in "main.c".
+      74            ;
+      75            ;       This function should therefore always be called with an argument of "false" or "0".
+      76            ;
+      77            ;               Input: One 16 bit value in R12, 0 representing boolean 'false', any other value repres
+      78            ;          Output: No output, all data manipulation is performed on global variables.
+      79            ;=====================================================================================================
+      80            ; * Register Map * ;
+      81            ;       Registers are reused, but only after the use of their prior name is done for this step of the 
+      82      0005  DSP_InputPointer:               .equ    R5                                                            
+      83      0004  DSP_i:                                  .equ    R4                                                    
+      84      000E  DSP_j:                                  .equ    R14                                                   
+      85            
+      86      0006  DSP_FilterIn_L:                 .equ    R6                                                            
+      87      0007  DSP_FilterIn_H:                 .equ    R7                                                            
+      88      0006  DSP_FilterOut_L:                .equ    R6                                                            
+      89      0007  DSP_FilterOut_H:                .equ    R7                                                            
+      90      0008  DSP_BlockOut1_L:                .equ    R8                                                            
+      91      0009  DSP_BlockOut1_H:                .equ    R9                                                            
+      92      000A  DSP_BlockOut2_L:                .equ    R10                                                           
+      93      000B  DSP_BlockOut2_H:                .equ    R11                                                           
+      94      000C  DSP_Temp1_L:                    .equ    R12                                                           
+      95      000D  DSP_Temp1_H:                    .equ    R13                                                           
+      96            
+      97      0008  DSP_XRefPointer:                .equ    R8                                                            
+      98      0008  DSP_YRefPointer:                .equ    R8                                                            
+      99            
+     100      000A  DSP_XOut_L:                             .equ    R10                                                   
+     101      000B  DSP_XOut_H:                             .equ    R11                                                   
+     102      000A  DSP_YOut_L:                             .equ    R10                                                   
+     103      000B  DSP_YOut_H:                             .equ    R11                                                   
+     104      000C  DSP_XFilt_L:                    .equ    R12                                                           
+     105      000D  DSP_XFilt_H:                    .equ    R13                                                           
+     106      000C  DSP_YFilt_L:                    .equ    R12                                                           
+     107      000D  DSP_YFilt_H:                    .equ    R13                                                           
+     108            
+     109            ; * Begin Subroutine * ; =============================================================================
+     110                                                            .global DSP_AnalysisLoop                              
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    3
+
+     111            DSP_AnalysisLoop:               .asmfunc
+     112            
+     113                                                            ; * Preamble * =======================================
+     114 000000 14BF                                                  pushm.a #12,R15                                       
+     115                                                                                                                  
+     116            
+     117 000002 4034                                                  mov.w   #512, DSP_i                                   
+         000004 0200 
+     118            
+     119 000006 430E                                                  movx.a  #0, DSP_j                                     
+     120                                                                                                                  
+     121            
+     122 000008 0085!                                                 mova    #MAIN_ADCBuffer+0, DSP_InputPointer           
+         00000a 0000 
+     123            
+     124                                                            ; * Filter Analysis Loop * ===========================
+     125                                                            ;* Get Next Sample *
+     126 00000c 40B2  DSP_LoopStart:                  mov.w   #MPYM1, &MPY32CTL0                                            
+         00000e 0020 
+         000010 0000!
+     127 000012 1840!                                                 movx.w  @DSP_InputPointer, &MPYS                      
+         000014 45A2 
+         000016 0000 
+     128 000018 40B2                                                  mov.w   #0x2000, &OP2                                 
+         00001a 2000 
+         00001c 0000!
+     129 00001e 4216                                                  mov.w   &RES0, DSP_FilterIn_L                         
+         000020 0000!
+     130 000022 4217                                                  mov.w   &RES1, DSP_FilterIn_H                         
+         000024 0000!
+     131            
+     132 000026 40B2                                                  mov.w   #OP2_32+OP1_32+MPYM0+MPYFRAC, &MPY32CTL0; Conf
+         000028 00D4 
+         00002a 0000!
+     133            
+     134                                                            ; * LWDBPF Block 1  (Type 1) * =======================
+     135 00002c 421C                                                  mov.w   &MAIN_FilterTap2+0, DSP_Temp1_L               
+         00002e 0000!
+     136 000030 421D                                                  mov.w   &MAIN_FilterTap2+2, DSP_Temp1_H               
+         000032 0002!
+     137 000034 4218                                                  mov.w   &MAIN_FilterTap1+0, DSP_BlockOut1_L           
+         000036 0000!
+     138 000038 4219                                                  mov.w   &MAIN_FilterTap1+2, DSP_BlockOut1_H           
+         00003a 0002!
+     139 00003c 880C                                                  sub.w   DSP_BlockOut1_L, DSP_Temp1_L                  
+     140 00003e 790D                                                  subc.w  DSP_BlockOut1_H, DSP_Temp1_H                  
+     141            
+     142 000040 4C82                                                  mov.w   DSP_Temp1_L, &MPYS32L                         
+         000042 0000!
+     143 000044 4D82                                                  mov.w   DSP_Temp1_H, &MPYS32H                         
+         000046 0000!
+     144 000048 40B2                                                  mov.w   #DSP_FilterAlpha1_L, &OP2L                    
+         00004a 50C0 
+         00004c 0000!
+     145 00004e 40B2                                                  mov.w   #DSP_FilterAlpha1_H, &OP2H                    
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    4
+
+         000050 09BE 
+         000052 0000!
+     146 000054 421C                                                  mov.w   &RES0, R12                                    
+         000056 0000!
+     147 000058 421C                                                  mov.w   &RES1, R12                                    
+         00005a 0000!
+     148 00005c 5218                                                  add.w   &RES2, DSP_BlockOut1_L                        
+         00005e 0000!
+     149 000060 6219                                                  addc.w  &RES3, DSP_BlockOut1_H                        
+         000062 0000!
+     150            
+     151 000064 480A                                                  mov.w   DSP_BlockOut1_L, DSP_BlockOut2_L              
+     152 000066 490B                                                  mov.w   DSP_BlockOut1_H, DSP_BlockOut2_H              
+     153 000068 8C0A                                                  sub.w   DSP_Temp1_L, DSP_BlockOut2_L                  
+     154 00006a 7D0B                                                  subc.w  DSP_Temp1_H, DSP_BlockOut2_H                  
+     155 00006c 4882                                                  mov.w   DSP_BlockOut1_L, &MAIN_FilterTap1+0           
+         00006e 0000!
+     156 000070 4982                                                  mov.w   DSP_BlockOut1_H, &MAIN_FilterTap1+2           
+         000072 0002!
+     157            
+     158                                                            ; * LWDBPF Block 2  (Type 4) * =======================
+     159 000074 4A08                                                  mov.w   DSP_BlockOut2_L, DSP_BlockOut1_L              
+     160 000076 4B09                                                  mov.w   DSP_BlockOut2_H, DSP_BlockOut1_H              
+     161 000078 8608                                                  sub.w   DSP_FilterIn_L, DSP_BlockOut1_L               
+     162 00007a 7709                                                  subc.w  DSP_FilterIn_H, DSP_BlockOut1_H               
+     163            
+     164 00007c 4882                                                  mov.w   DSP_BlockOut1_L, &MPYS32L                     
+         00007e 0000!
+     165 000080 4982                                                  mov.w   DSP_BlockOut1_H, &MPYS32H                     
+         000082 0000!
+     166 000084 40B2                                                  mov.w   #DSP_FilterAlpha2_L, &OP2L                    
+         000086 26E9 
+         000088 0000!
+     167 00008a 40B2                                                  mov.w   #DSP_FilterAlpha2_H, &OP2H                    
+         00008c 0031 
+         00008e 0000!
+     168 000090 421C                                                  mov.w   &RES0, R12                                    
+         000092 0000!
+     169 000094 421C                                                  mov.w   &RES1, R12                                    
+         000096 0000!
+     170 000098 421C                                                  mov.w   &RES2, DSP_Temp1_L                            
+         00009a 0000!
+     171 00009c 421D                                                  mov.w   &RES3, DSP_Temp1_H                            
+         00009e 0000!
+     172            
+     173 0000a0 8A0C                                                  sub.w   DSP_BlockOut2_L, DSP_Temp1_L                  
+     174 0000a2 7B0D                                                  subc.w  DSP_BlockOut2_H, DSP_Temp1_H                  
+     175 0000a4 4C82                                                  mov.w   DSP_Temp1_L, &MAIN_FilterTap2+0               
+         0000a6 0000!
+     176 0000a8 4D82                                                  mov.w   DSP_Temp1_H, &MAIN_FilterTap2+2               
+         0000aa 0002!
+     177 0000ac 880C                                                  sub.w   DSP_BlockOut1_L, DSP_Temp1_L                  
+     178 0000ae 790D                                                  subc.w  DSP_BlockOut1_H, DSP_Temp1_H                  
+     179            
+     180                                                            ; * LWDBPF Output * ==================================
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    5
+
+     181 0000b0 8C06                                                  sub.w   DSP_Temp1_L, DSP_FilterOut_L                  
+     182 0000b2 7D07                                                  subc.w  DSP_Temp1_H, DSP_FilterOut_H                  
+     183            
+     184 0000b4 0157                                                  rra.w   DSP_FilterOut_H                               
+     185 0000b6 0056                                                  rrc.w   DSP_FilterOut_L                               
+     186            
+     187                                                            ; * Register Inventory * =============================
+     188                                                            ; LWDBF Output in R6,R7
+     189                                                            ; R4, R5, and R14 are reserved for indexing.
+     190                                                            ; R15 reserved for stacking.
+     191                                                            ; R8,9,10,11,12,13 are available.
+     192            
+     193                                                            ; * X Mixer Prep * ===================================
+     194 0000b8 0088!                                                 mova    #MAIN_LockInXRef+0, DSP_XRefPointer           
+         0000ba 0000 
+     195 0000bc 0EE8                                                  adda    DSP_j, DSP_XRefPointer                        
+     196            
+     197                                                            ; * X Mixer Side * ===================================
+     198 0000be 4682                                                  mov.w   DSP_FilterOut_L, &MPYS32L                     
+         0000c0 0000!
+     199 0000c2 4782                                                  mov.w   DSP_FilterOut_H, &MPYS32H                     
+         0000c4 0000!
+     200 0000c6 48B2                                                  mov.w   @DSP_XRefPointer+, &OP2L                      
+         0000c8 0000!
+     201 0000ca 48A2                                                  mov.w   @DSP_XRefPointer, &OP2H                       
+         0000cc 0000!
+     202 0000ce 421C                                                  mov.w   &RES0, R12                                    
+         0000d0 0000!
+     203 0000d2 421A                                                  mov.w   &RES1, DSP_XOut_L                             
+         0000d4 0000!
+     204 0000d6 421B                                                  mov.w   &RES2, DSP_XOut_H                             
+         0000d8 0000!
+     205 0000da 421C                                                  mov.w   &RES3, R12                                    
+         0000dc 0000!
+     206            
+     207 0000de 5A82                                                  add.w   DSP_XOut_L, &MAIN_XFilterTap1+0               
+         0000e0 0000!
+     208 0000e2 6B82                                                  addc.w  DSP_XOut_H, &MAIN_XFilterTap1+2               
+         0000e4 0002!
+     209            
+     210 0000e6 4292                                                  mov.w   &MAIN_XFilterTap1+0, &MPYS32L                 
+         0000e8 0000!
+         0000ea 0000!
+     211 0000ec 4292                                                  mov.w   &MAIN_XFilterTap1+2, &MPYS32H                 
+         0000ee 0002!
+         0000f0 0000!
+     212 0000f2 40B2                                                  mov.w   #DSP_FilterB_L, &OP2L                         
+         0000f4 D698 
+         0000f6 0000!
+     213 0000f8 40B2                                                  mov.w   #DSP_FilterB_H, &OP2H                         
+         0000fa 00C7 
+         0000fc 0000!
+     214 0000fe 421C                                                  mov.w   &RES0, R12                                    
+         000100 0000!
+     215 000102 421C                                                  mov.w   &RES1, R12                                    
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    6
+
+         000104 0000!
+     216 000106 421C                                                  mov.w   &RES2, DSP_XFilt_L                            
+         000108 0000!
+     217 00010a 421D                                                  mov.w   &RES3, DSP_XFilt_H                            
+         00010c 0000!
+     218            
+     219 00010e 4292                                                  mov.w   &MAIN_XFilterTap2+0, &MPYS32L                 
+         000110 0000!
+         000112 0000!
+     220 000114 4292                                                  mov.w   &MAIN_XFilterTap2+2, &MPYS32H                 
+         000116 0002!
+         000118 0000!
+     221 00011a 40B2                                                  mov.w   #DSP_FilterA_L, &OP2L                         
+         00011c 52D0 
+         00011e 0000!
+     222 000120 40B2                                                  mov.w   #DSP_FilterA_H, &OP2H                         
+         000122 7E70 
+         000124 0000!
+     223 000126 421C                                                  mov.w   &RES0, R12                                    
+         000128 0000!
+     224 00012a 421C                                                  mov.w   &RES1, R12                                    
+         00012c 0000!
+     225 00012e 521C                                                  add.w   &RES2, DSP_XFilt_L                            
+         000130 0000!
+     226 000132 621D                                                  addc.w  &RES3, DSP_XFilt_H                            
+         000134 0000!
+     227            
+     228 000136 4A82                                                  mov.w   DSP_XOut_L, &MAIN_XFilterTap1+0               
+         000138 0000!
+     229 00013a 4B82                                                  mov.w   DSP_XOut_H, &MAIN_XFilterTap1+2               
+         00013c 0002!
+     230 00013e 4C82                                                  mov.w   DSP_XFilt_L, &MAIN_XFilterTap2+0              
+         000140 0000!
+     231 000142 4D82                                                  mov.w   DSP_XFilt_H, &MAIN_XFilterTap2+2              
+         000144 0002!
+     232            
+     233                                                            ; Convert Output to int16_t
+     234 000146 025C                                                  rla.w   DSP_XFilt_L                                   
+     235 000148 6D0D                                                  rlc.w   DSP_XFilt_H                                   
+     236 00014a 025C                                                  rla.w   DSP_XFilt_L                                   
+     237 00014c 6D0D                                                  rlc.w   DSP_XFilt_H                                   
+     238 00014e 025C                                                  rla.w   DSP_XFilt_L                                   
+     239 000150 6D0D                                                  rlc.w   DSP_XFilt_H                                   
+     240 000152 4D82                                                  mov.w   DSP_XFilt_H, &MAIN_XOut+0                     
+         000154 0000!
+     241            
+     242                                                            ; * Y Mixer Prep * ===================================
+     243 000156 0088!                                                 mova    #MAIN_LockInYRef+0, DSP_YRefPointer           
+         000158 0000 
+     244 00015a 0EE8                                                  adda    DSP_j, DSP_XRefPointer                        
+     245            
+     246                                                            ; * Y Mixer Side * ===================================
+     247 00015c 4682                                                  mov.w   DSP_FilterOut_L, &MPYS32L                     
+         00015e 0000!
+     248 000160 4782                                                  mov.w   DSP_FilterOut_H, &MPYS32H                     
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    7
+
+         000162 0000!
+     249 000164 48B2                                                  mov.w   @DSP_YRefPointer+, &OP2L                      
+         000166 0000!
+     250 000168 48A2                                                  mov.w   @DSP_YRefPointer, &OP2H                       
+         00016a 0000!
+     251 00016c 421C                                                  mov.w   &RES0, R12                                    
+         00016e 0000!
+     252 000170 421A                                                  mov.w   &RES1, DSP_YOut_L                             
+         000172 0000!
+     253 000174 421B                                                  mov.w   &RES2, DSP_YOut_H                             
+         000176 0000!
+     254 000178 421C                                                  mov.w   &RES3, R12                                    
+         00017a 0000!
+     255            
+     256 00017c 5A82                                                  add.w   DSP_YOut_L, &MAIN_YFilterTap1+0               
+         00017e 0000!
+     257 000180 6B82                                                  addc.w  DSP_YOut_H, &MAIN_YFilterTap1+2               
+         000182 0002!
+     258            
+     259 000184 4292                                                  mov.w   &MAIN_YFilterTap1+0, &MPYS32L                 
+         000186 0000!
+         000188 0000!
+     260 00018a 4292                                                  mov.w   &MAIN_YFilterTap1+2, &MPYS32H                 
+         00018c 0002!
+         00018e 0000!
+     261 000190 40B2                                                  mov.w   #DSP_FilterB_L, &OP2L                         
+         000192 D698 
+         000194 0000!
+     262 000196 40B2                                                  mov.w   #DSP_FilterB_H, &OP2H                         
+         000198 00C7 
+         00019a 0000!
+     263 00019c 421C                                                  mov.w   &RES0, R12                                    
+         00019e 0000!
+     264 0001a0 421C                                                  mov.w   &RES1, R12                                    
+         0001a2 0000!
+     265 0001a4 421C                                                  mov.w   &RES2, DSP_YFilt_L                            
+         0001a6 0000!
+     266 0001a8 421D                                                  mov.w   &RES3, DSP_YFilt_H                            
+         0001aa 0000!
+     267            
+     268 0001ac 4292                                                  mov.w   &MAIN_YFilterTap2+0, &MPYS32L                 
+         0001ae 0000!
+         0001b0 0000!
+     269 0001b2 4292                                                  mov.w   &MAIN_YFilterTap2+2, &MPYS32H                 
+         0001b4 0002!
+         0001b6 0000!
+     270 0001b8 40B2                                                  mov.w   #DSP_FilterA_L, &OP2L                         
+         0001ba 52D0 
+         0001bc 0000!
+     271 0001be 40B2                                                  mov.w   #DSP_FilterA_H, &OP2H                         
+         0001c0 7E70 
+         0001c2 0000!
+     272 0001c4 421C                                                  mov.w   &RES0, R12                                    
+         0001c6 0000!
+     273 0001c8 421C                                                  mov.w   &RES1, R12                                    
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    8
+
+         0001ca 0000!
+     274 0001cc 521C                                                  add.w   &RES2, DSP_YFilt_L                            
+         0001ce 0000!
+     275 0001d0 621D                                                  addc.w  &RES3, DSP_YFilt_H                            
+         0001d2 0000!
+     276            
+     277 0001d4 4A82                                                  mov.w   DSP_YOut_L, &MAIN_YFilterTap1+0               
+         0001d6 0000!
+     278 0001d8 4B82                                                  mov.w   DSP_YOut_H, &MAIN_YFilterTap1+2               
+         0001da 0002!
+     279 0001dc 4C82                                                  mov.w   DSP_YFilt_L, &MAIN_YFilterTap2+0              
+         0001de 0000!
+     280 0001e0 4D82                                                  mov.w   DSP_YFilt_H, &MAIN_YFilterTap2+2              
+         0001e2 0002!
+     281            
+     282                                                            ; Convert Output to int16_t
+     283 0001e4 025C                                                  rla.w   DSP_YFilt_L                                   
+     284 0001e6 6D0D                                                  rlc.w   DSP_YFilt_H                                   
+     285 0001e8 025C                                                  rla.w   DSP_YFilt_L                                   
+     286 0001ea 6D0D                                                  rlc.w   DSP_YFilt_H                                   
+     287 0001ec 025C                                                  rla.w   DSP_YFilt_L                                   
+     288 0001ee 6D0D                                                  rlc.w   DSP_YFilt_H                                   
+     289 0001f0 4D82                                                  mov.w   DSP_YFilt_H, &MAIN_YOut+0                     
+         0001f2 0000!
+     290            
+     291                                                            ; * Register Inventory * =============================
+     292                                                            ; LWDBF Output in R6,R7
+     293                                                            ; R4, R5, and R14 are reserved for indexing.
+     294                                                            ; R15 reserved for debugging.
+     295                                                            ; Xout stored in RAM
+     296                                                            ; Yout stored in RAM
+     297                                                            ; R8,9,10,11,12,13 are available.
+     298            
+     299                                                            ; * Accumulate * =====================================
+     300 0001f4 4218                                                  mov.w   &MAIN_XOut+0, R8
+         0001f6 0000!
+     301 0001f8 4219                                                  mov.w   &MAIN_YOut+0, R9
+         0001fa 0000!
+     302 0001fc 421A                                                  mov.w   &MAIN_XAcc+0, R10
+         0001fe 0000!
+     303 000200 421B                                                  mov.w   &MAIN_XAcc+2, R11
+         000202 0002!
+     304 000204 421C                                                  mov.w   &MAIN_YAcc+0, R12
+         000206 0000!
+     305 000208 421D                                                  mov.w   &MAIN_YAcc+2, R13
+         00020a 0002!
+     306            
+     307 00020c 9308                                                  tst.w   R8
+     308 00020e 3003                                                  jn              DSP_XNeg
+     309            
+     310 000210 580A  DSP_XPos:                               add.w   R8,R10
+     311 000212 630B                                                  addc.w  #0,R11
+     312 000214 3C02                                                  jmp             DSP_Y
+     313            
+     314 000216 580A  DSP_XNeg:                               add.w   R8,R10
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE    9
+
+     315 000218 633B                                                  addc.w  #0xFFFF,R11
+     316            
+     317 00021a 9309  DSP_Y:                                  tst.w   R9
+     318 00021c 3003                                                  jn              DSP_YNeg
+     319            
+     320 00021e 590C  DSP_YPos:                               add.w   R9,R12
+     321 000220 630D                                                  addc.w  #0,R13
+     322 000222 3C02                                                  jmp             DSP_Acc
+     323            
+     324 000224 590C  DSP_YNeg:                               add.w   R9,R12
+     325 000226 633D                                                  addc.w  #0xFFFF,R13
+     326            
+     327 000228 4A82  DSP_Acc:                                mov.w   R10, &MAIN_XAcc+0
+         00022a 0000!
+     328 00022c 4B82                                                  mov.w   R11, &MAIN_XAcc+2
+         00022e 0002!
+     329 000230 4C82                                                  mov.w   R12, &MAIN_YAcc+0
+         000232 0000!
+     330 000234 4D82                                                  mov.w   R13, &MAIN_YAcc+2
+         000236 0002!
+     331            
+     332                                                            ; * Loop Handling * ==================================
+     333 000238 03E5  DSP_LoopHandle:                 incdx.a DSP_InputPointer                                              
+     334            
+     335 00023a 03EE                                                  incdx.a DSP_j                                         
+     336 00023c 03EE                                                  incdx.a DSP_j                                         
+     337 00023e 1800                                                  andx.a  #60, DSP_j                                    
+         000240 F07E 
+         000242 003C 
+     338            
+     339 000244 8314                                                  dec.w   DSP_i                                         
+     340 000246 22E2                                                  jnz             DSP_LoopStart                         
+     341            
+     342                                                            ;* Post-loop computations * ==========================
+     343 000248 40B2                                                  mov.w   #OP2_32+OP1_32+MPYM0, &MPY32CTL0              
+         00024a 00D0 
+         00024c 0000!
+     344            
+     345 00024e 4292                                                  mov.w   &MAIN_XAcc+0, &MPYS32L                        
+         000250 0000!
+         000252 0000!
+     346 000254 4292                                                  mov.w   &MAIN_XAcc+2, &MPYS32H                        
+         000256 0002!
+         000258 0000!
+     347 00025a 40B2                                                  mov.w   #128, &OP2L                                   
+         00025c 0080 
+         00025e 0000!
+     348 000260 4382                                                  mov.w   #0,     &OP2H                                 
+         000262 0000!
+     349 000264 421C                                                  mov.w   &RES0, R12                                    
+         000266 0000!
+     350 000268 4292                                                  mov.w   &RES1, &MAIN_XAcc+0                           
+         00026a 0000!
+         00026c 0000!
+     351 00026e 4292                                                  mov.w   &RES2, &MAIN_XAcc+2                           
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:03:15 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+../src/dsp.asm                                                       PAGE   10
+
+         000270 0000!
+         000272 0002!
+     352 000274 421C                                                  mov.w   &RES3, R12                                    
+         000276 0000!
+     353            
+     354 000278 4292                                                  mov.w   &MAIN_YAcc+0, &MPYS32L                        
+         00027a 0000!
+         00027c 0000!
+     355 00027e 4292                                                  mov.w   &MAIN_YAcc+2, &MPYS32H                        
+         000280 0002!
+         000282 0000!
+     356 000284 40B2                                                  mov.w   #128, &OP2L                                   
+         000286 0080 
+         000288 0000!
+     357 00028a 4382                                                  mov.w   #0,     &OP2H                                 
+         00028c 0000!
+     358 00028e 421C                                                  mov.w   &RES0, R12                                    
+         000290 0000!
+     359 000292 4292                                                  mov.w   &RES1, &MAIN_YAcc+0                           
+         000294 0000!
+         000296 0000!
+     360 000298 4292                                                  mov.w   &RES2, &MAIN_YAcc+2                           
+         00029a 0000!
+         00029c 0002!
+     361 00029e 421C                                                  mov.w   &RES3, R12                                    
+         0002a0 0000!
+     362            
+     363                                                            ;* Cleanup and Return * ==============================
+     364 0002a2 16B4                                                  popm.a  #12, R15                                      
+     365 0002a4 0110                                          reta
+     366                                                    .endasmfunc
+     367            
+
+No Assembly Errors, No Assembly Warnings

@@ -1,0 +1,1636 @@
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    1
+
+       1            ;******************************************************************************
+       2            ;* MSP430 G3 C/C++ Codegen                                              PC v21.6.1.LTS *
+       3            ;* Date/Time created: Mon Feb 24 13:22:58 2025                                *
+       4            ;******************************************************************************
+       5                    .compiler_opts --abi=eabi --diag_wrap=off --hll_source=on --mem_model:code=large --mem_model:d
+       6            
+       7            $C$DW$CU        .dwtag  DW_TAG_compile_unit
+       8                    .dwattr $C$DW$CU, DW_AT_name("../src/wdt.c")
+       9                    .dwattr $C$DW$CU, DW_AT_producer("TI MSP430 G3 C/C++ Codegen PC v21.6.1.LTS Copyright (c) 2003
+      10                    .dwattr $C$DW$CU, DW_AT_TI_version(0x01)
+      11                    .dwattr $C$DW$CU, DW_AT_comp_dir("C:\Users\kyle_\Documents\CodeComposerStudio\PIXIE_MSP430\Deb
+      12            $C$DW$1 .dwtag  DW_TAG_variable
+      13                    .dwattr $C$DW$1, DW_AT_name("WDTCTL")
+      14                    .dwattr $C$DW$1, DW_AT_TI_symbol_name("WDTCTL")
+      15                    .dwattr $C$DW$1, DW_AT_type(*$C$DW$T$70)
+      16                    .dwattr $C$DW$1, DW_AT_declaration
+      17                    .dwattr $C$DW$1, DW_AT_external
+      18                    .dwattr $C$DW$1, DW_AT_decl_file("C:\ti\ccs1250\ccs\ccs_base\msp430\include\msp430fg6626.h")
+      19                    .dwattr $C$DW$1, DW_AT_decl_line(0x152e)
+      20                    .dwattr $C$DW$1, DW_AT_decl_column(0x01)
+      21            
+      22            ;       C:\ti\ccs1250\ccs\tools\compiler\ti-cgt-msp430_21.6.1.LTS\bin\opt430.exe C:\\Users\\kyle_\\App
+      23 000000               .sect   ".text:WDT_SoftwareReset"
+      24                    .align  4
+      25                    .clink
+      26                    .global WDT_SoftwareReset
+      27            
+      28            $C$DW$2 .dwtag  DW_TAG_subprogram
+      29                    .dwattr $C$DW$2, DW_AT_name("WDT_SoftwareReset")
+      30                    .dwattr $C$DW$2, DW_AT_low_pc(WDT_SoftwareReset)
+      31                    .dwattr $C$DW$2, DW_AT_high_pc(0x00)
+      32                    .dwattr $C$DW$2, DW_AT_TI_symbol_name("WDT_SoftwareReset")
+      33                    .dwattr $C$DW$2, DW_AT_external
+      34                    .dwattr $C$DW$2, DW_AT_TI_begin_file("../src/wdt.c")
+      35                    .dwattr $C$DW$2, DW_AT_TI_begin_line(0x28)
+      36                    .dwattr $C$DW$2, DW_AT_TI_begin_column(0x0d)
+      37                    .dwattr $C$DW$2, DW_AT_decl_file("../src/wdt.c")
+      38                    .dwattr $C$DW$2, DW_AT_decl_line(0x28)
+      39                    .dwattr $C$DW$2, DW_AT_decl_column(0x0d)
+      40                    .dwattr $C$DW$2, DW_AT_TI_max_frame_size(0x04)
+      41                    .dwpsn  file "../src/wdt.c",line 41,column 1,is_stmt,address WDT_SoftwareReset,isa 0
+      42            
+      43                    .dwfde $C$DW$CIE, WDT_SoftwareReset
+      44            
+      45            ;*****************************************************************************
+      46            ;* FUNCTION NAME: WDT_SoftwareReset                                          *
+      47            ;*                                                                           *
+      48            ;*   Regs Modified     : SP                                                  *
+      49            ;*   Regs Used         : SP                                                  *
+      50            ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+      51            ;*****************************************************************************
+      52 000000       WDT_SoftwareReset:
+      53            ;* --------------------------------------------------------------------------*
+      54                    .dwcfi  cfa_offset, 4
+      55                    .dwcfi  save_reg_to_mem, 16, -4
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    2
+
+      56                    .dwpsn  file "../src/wdt.c",line 42,column 5,is_stmt,isa 0
+      57 000000 43B2          MOV.W     #65535,&WDTCTL+0      ; [] |42| 
+         000002 0000!
+      58            $C$DW$3 .dwtag  DW_TAG_TI_branch
+      59                    .dwattr $C$DW$3, DW_AT_low_pc(0x00)
+      60                    .dwattr $C$DW$3, DW_AT_TI_return
+      61            
+      62 000004 0110          RETA      ; [] 
+      63                    ; [] 
+      64                    .dwattr $C$DW$2, DW_AT_TI_end_file("../src/wdt.c")
+      65                    .dwattr $C$DW$2, DW_AT_TI_end_line(0x2b)
+      66                    .dwattr $C$DW$2, DW_AT_TI_end_column(0x01)
+      67                    .dwendentry
+      68                    .dwendtag $C$DW$2
+      69            
+      70 000000               .sect   ".text:WDT_InitializeWDT"
+      71                    .align  4
+      72                    .clink
+      73                    .global WDT_InitializeWDT
+      74            
+      75            $C$DW$4 .dwtag  DW_TAG_subprogram
+      76                    .dwattr $C$DW$4, DW_AT_name("WDT_InitializeWDT")
+      77                    .dwattr $C$DW$4, DW_AT_low_pc(WDT_InitializeWDT)
+      78                    .dwattr $C$DW$4, DW_AT_high_pc(0x00)
+      79                    .dwattr $C$DW$4, DW_AT_TI_symbol_name("WDT_InitializeWDT")
+      80                    .dwattr $C$DW$4, DW_AT_external
+      81                    .dwattr $C$DW$4, DW_AT_TI_begin_file("../src/wdt.c")
+      82                    .dwattr $C$DW$4, DW_AT_TI_begin_line(0x1c)
+      83                    .dwattr $C$DW$4, DW_AT_TI_begin_column(0x06)
+      84                    .dwattr $C$DW$4, DW_AT_decl_file("../src/wdt.c")
+      85                    .dwattr $C$DW$4, DW_AT_decl_line(0x1c)
+      86                    .dwattr $C$DW$4, DW_AT_decl_column(0x06)
+      87                    .dwattr $C$DW$4, DW_AT_TI_max_frame_size(0x04)
+      88                    .dwpsn  file "../src/wdt.c",line 29,column 1,is_stmt,address WDT_InitializeWDT,isa 0
+      89            
+      90                    .dwfde $C$DW$CIE, WDT_InitializeWDT
+      91            
+      92            ;*****************************************************************************
+      93            ;* FUNCTION NAME: WDT_InitializeWDT                                          *
+      94            ;*                                                                           *
+      95            ;*   Regs Modified     : SP                                                  *
+      96            ;*   Regs Used         : SP                                                  *
+      97            ;*   Local Frame Size  : 0 Args + 0 Auto + 0 Save = 0 byte                   *
+      98            ;*****************************************************************************
+      99 000000       WDT_InitializeWDT:
+     100            ;* --------------------------------------------------------------------------*
+     101                    .dwcfi  cfa_offset, 4
+     102                    .dwcfi  save_reg_to_mem, 16, -4
+     103                    .dwpsn  file "../src/wdt.c",line 30,column 5,is_stmt,isa 0
+     104 000000 40B2          MOV.W     #23168,&WDTCTL+0      ; [] |30| 
+         000002 5A80 
+         000004 0000!
+     105            $C$DW$5 .dwtag  DW_TAG_TI_branch
+     106                    .dwattr $C$DW$5, DW_AT_low_pc(0x00)
+     107                    .dwattr $C$DW$5, DW_AT_TI_return
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    3
+
+     108            
+     109 000006 0110          RETA      ; [] 
+     110                    ; [] 
+     111                    .dwattr $C$DW$4, DW_AT_TI_end_file("../src/wdt.c")
+     112                    .dwattr $C$DW$4, DW_AT_TI_end_line(0x20)
+     113                    .dwattr $C$DW$4, DW_AT_TI_end_column(0x01)
+     114                    .dwendentry
+     115                    .dwendtag $C$DW$4
+     116            
+     117            ;*****************************************************************************
+     118            ;* UNDEFINED EXTERNAL REFERENCES                                             *
+     119            ;*****************************************************************************
+     120                    .global WDTCTL
+     121            ;*****************************************************************************
+     122            ;* SECTION GROUPS                                                            *
+     123            ;*****************************************************************************
+     124                    .group    "WDT_SoftwareReset", 1
+     125                    .gmember  ".text:WDT_SoftwareReset"
+     126                    .endgroup
+     127            
+     128            
+     129            ;******************************************************************************
+     130            ;* BUILD ATTRIBUTES                                                           *
+     131            ;******************************************************************************
+     132                    .battr "TI", Tag_File, 1, Tag_LPM_INFO(1)
+     133                    .battr "TI", Tag_File, 1, Tag_PORTS_INIT_INFO("012345678901ABCDEFGHIJ0000000000001111100000000
+     134                    .battr "TI", Tag_File, 1, Tag_LEA_INFO(1)
+     135                    .battr "TI", Tag_File, 1, Tag_HW_MPY32_INFO(2)
+     136                    .battr "TI", Tag_File, 1, Tag_HW_MPY_ISR_INFO(1)
+     137                    .battr "TI", Tag_File, 1, Tag_HW_MPY_INLINE_INFO(2)
+     138                    .battr "mspabi", Tag_File, 1, Tag_enum_size(3)
+     139            
+     140            ;******************************************************************************
+     141            ;* TYPE INFORMATION                                                           *
+     142            ;******************************************************************************
+     143            
+     144            $C$DW$T$21      .dwtag  DW_TAG_structure_type
+     145                    .dwattr $C$DW$T$21, DW_AT_byte_size(0x10)
+     146            $C$DW$6 .dwtag  DW_TAG_member
+     147                    .dwattr $C$DW$6, DW_AT_type(*$C$DW$T$14)
+     148                    .dwattr $C$DW$6, DW_AT_name("__max_align1")
+     149                    .dwattr $C$DW$6, DW_AT_TI_symbol_name("__max_align1")
+     150                    .dwattr $C$DW$6, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     151                    .dwattr $C$DW$6, DW_AT_accessibility(DW_ACCESS_public)
+     152                    .dwattr $C$DW$6, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/in
+     153                    .dwattr $C$DW$6, DW_AT_decl_line(0x7b)
+     154                    .dwattr $C$DW$6, DW_AT_decl_column(0x0c)
+     155            
+     156            $C$DW$7 .dwtag  DW_TAG_member
+     157                    .dwattr $C$DW$7, DW_AT_type(*$C$DW$T$18)
+     158                    .dwattr $C$DW$7, DW_AT_name("__max_align2")
+     159                    .dwattr $C$DW$7, DW_AT_TI_symbol_name("__max_align2")
+     160                    .dwattr $C$DW$7, DW_AT_data_member_location[DW_OP_plus_uconst 0x8]
+     161                    .dwattr $C$DW$7, DW_AT_accessibility(DW_ACCESS_public)
+     162                    .dwattr $C$DW$7, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/in
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    4
+
+     163                    .dwattr $C$DW$7, DW_AT_decl_line(0x7c)
+     164                    .dwattr $C$DW$7, DW_AT_decl_column(0x0e)
+     165            
+     166                    .dwattr $C$DW$T$21, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     167                    .dwattr $C$DW$T$21, DW_AT_decl_line(0x7a)
+     168                    .dwattr $C$DW$T$21, DW_AT_decl_column(0x10)
+     169                    .dwendtag $C$DW$T$21
+     170            
+     171            $C$DW$T$25      .dwtag  DW_TAG_typedef
+     172                    .dwattr $C$DW$T$25, DW_AT_name("__max_align_t")
+     173                    .dwattr $C$DW$T$25, DW_AT_type(*$C$DW$T$21)
+     174                    .dwattr $C$DW$T$25, DW_AT_language(DW_LANG_C)
+     175                    .dwattr $C$DW$T$25, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     176                    .dwattr $C$DW$T$25, DW_AT_decl_line(0x7d)
+     177                    .dwattr $C$DW$T$25, DW_AT_decl_column(0x03)
+     178            
+     179            
+     180            $C$DW$T$22      .dwtag  DW_TAG_structure_type
+     181                    .dwattr $C$DW$T$22, DW_AT_byte_size(0x04)
+     182            $C$DW$8 .dwtag  DW_TAG_member
+     183                    .dwattr $C$DW$8, DW_AT_type(*$C$DW$T$10)
+     184                    .dwattr $C$DW$8, DW_AT_name("quot")
+     185                    .dwattr $C$DW$8, DW_AT_TI_symbol_name("quot")
+     186                    .dwattr $C$DW$8, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     187                    .dwattr $C$DW$8, DW_AT_accessibility(DW_ACCESS_public)
+     188                    .dwattr $C$DW$8, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/in
+     189                    .dwattr $C$DW$8, DW_AT_decl_line(0x56)
+     190                    .dwattr $C$DW$8, DW_AT_decl_column(0x16)
+     191            
+     192            $C$DW$9 .dwtag  DW_TAG_member
+     193                    .dwattr $C$DW$9, DW_AT_type(*$C$DW$T$10)
+     194                    .dwattr $C$DW$9, DW_AT_name("rem")
+     195                    .dwattr $C$DW$9, DW_AT_TI_symbol_name("rem")
+     196                    .dwattr $C$DW$9, DW_AT_data_member_location[DW_OP_plus_uconst 0x2]
+     197                    .dwattr $C$DW$9, DW_AT_accessibility(DW_ACCESS_public)
+     198                    .dwattr $C$DW$9, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/in
+     199                    .dwattr $C$DW$9, DW_AT_decl_line(0x56)
+     200                    .dwattr $C$DW$9, DW_AT_decl_column(0x1c)
+     201            
+     202                    .dwattr $C$DW$T$22, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     203                    .dwattr $C$DW$T$22, DW_AT_decl_line(0x56)
+     204                    .dwattr $C$DW$T$22, DW_AT_decl_column(0x10)
+     205                    .dwendtag $C$DW$T$22
+     206            
+     207            $C$DW$T$26      .dwtag  DW_TAG_typedef
+     208                    .dwattr $C$DW$T$26, DW_AT_name("div_t")
+     209                    .dwattr $C$DW$T$26, DW_AT_type(*$C$DW$T$22)
+     210                    .dwattr $C$DW$T$26, DW_AT_language(DW_LANG_C)
+     211                    .dwattr $C$DW$T$26, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     212                    .dwattr $C$DW$T$26, DW_AT_decl_line(0x56)
+     213                    .dwattr $C$DW$T$26, DW_AT_decl_column(0x23)
+     214            
+     215            
+     216            $C$DW$T$23      .dwtag  DW_TAG_structure_type
+     217                    .dwattr $C$DW$T$23, DW_AT_byte_size(0x08)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    5
+
+     218            $C$DW$10        .dwtag  DW_TAG_member
+     219                    .dwattr $C$DW$10, DW_AT_type(*$C$DW$T$12)
+     220                    .dwattr $C$DW$10, DW_AT_name("quot")
+     221                    .dwattr $C$DW$10, DW_AT_TI_symbol_name("quot")
+     222                    .dwattr $C$DW$10, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     223                    .dwattr $C$DW$10, DW_AT_accessibility(DW_ACCESS_public)
+     224                    .dwattr $C$DW$10, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/i
+     225                    .dwattr $C$DW$10, DW_AT_decl_line(0x59)
+     226                    .dwattr $C$DW$10, DW_AT_decl_column(0x17)
+     227            
+     228            $C$DW$11        .dwtag  DW_TAG_member
+     229                    .dwattr $C$DW$11, DW_AT_type(*$C$DW$T$12)
+     230                    .dwattr $C$DW$11, DW_AT_name("rem")
+     231                    .dwattr $C$DW$11, DW_AT_TI_symbol_name("rem")
+     232                    .dwattr $C$DW$11, DW_AT_data_member_location[DW_OP_plus_uconst 0x4]
+     233                    .dwattr $C$DW$11, DW_AT_accessibility(DW_ACCESS_public)
+     234                    .dwattr $C$DW$11, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/i
+     235                    .dwattr $C$DW$11, DW_AT_decl_line(0x59)
+     236                    .dwattr $C$DW$11, DW_AT_decl_column(0x1d)
+     237            
+     238                    .dwattr $C$DW$T$23, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     239                    .dwattr $C$DW$T$23, DW_AT_decl_line(0x59)
+     240                    .dwattr $C$DW$T$23, DW_AT_decl_column(0x10)
+     241                    .dwendtag $C$DW$T$23
+     242            
+     243            $C$DW$T$27      .dwtag  DW_TAG_typedef
+     244                    .dwattr $C$DW$T$27, DW_AT_name("ldiv_t")
+     245                    .dwattr $C$DW$T$27, DW_AT_type(*$C$DW$T$23)
+     246                    .dwattr $C$DW$T$27, DW_AT_language(DW_LANG_C)
+     247                    .dwattr $C$DW$T$27, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     248                    .dwattr $C$DW$T$27, DW_AT_decl_line(0x59)
+     249                    .dwattr $C$DW$T$27, DW_AT_decl_column(0x24)
+     250            
+     251            
+     252            $C$DW$T$24      .dwtag  DW_TAG_structure_type
+     253                    .dwattr $C$DW$T$24, DW_AT_byte_size(0x10)
+     254            $C$DW$12        .dwtag  DW_TAG_member
+     255                    .dwattr $C$DW$12, DW_AT_type(*$C$DW$T$14)
+     256                    .dwattr $C$DW$12, DW_AT_name("quot")
+     257                    .dwattr $C$DW$12, DW_AT_TI_symbol_name("quot")
+     258                    .dwattr $C$DW$12, DW_AT_data_member_location[DW_OP_plus_uconst 0x0]
+     259                    .dwattr $C$DW$12, DW_AT_accessibility(DW_ACCESS_public)
+     260                    .dwattr $C$DW$12, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/i
+     261                    .dwattr $C$DW$12, DW_AT_decl_line(0x63)
+     262                    .dwattr $C$DW$12, DW_AT_decl_column(0x1c)
+     263            
+     264            $C$DW$13        .dwtag  DW_TAG_member
+     265                    .dwattr $C$DW$13, DW_AT_type(*$C$DW$T$14)
+     266                    .dwattr $C$DW$13, DW_AT_name("rem")
+     267                    .dwattr $C$DW$13, DW_AT_TI_symbol_name("rem")
+     268                    .dwattr $C$DW$13, DW_AT_data_member_location[DW_OP_plus_uconst 0x8]
+     269                    .dwattr $C$DW$13, DW_AT_accessibility(DW_ACCESS_public)
+     270                    .dwattr $C$DW$13, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/i
+     271                    .dwattr $C$DW$13, DW_AT_decl_line(0x63)
+     272                    .dwattr $C$DW$13, DW_AT_decl_column(0x22)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    6
+
+     273            
+     274                    .dwattr $C$DW$T$24, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     275                    .dwattr $C$DW$T$24, DW_AT_decl_line(0x63)
+     276                    .dwattr $C$DW$T$24, DW_AT_decl_column(0x10)
+     277                    .dwendtag $C$DW$T$24
+     278            
+     279            $C$DW$T$28      .dwtag  DW_TAG_typedef
+     280                    .dwattr $C$DW$T$28, DW_AT_name("lldiv_t")
+     281                    .dwattr $C$DW$T$28, DW_AT_type(*$C$DW$T$24)
+     282                    .dwattr $C$DW$T$28, DW_AT_language(DW_LANG_C)
+     283                    .dwattr $C$DW$T$28, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     284                    .dwattr $C$DW$T$28, DW_AT_decl_line(0x63)
+     285                    .dwattr $C$DW$T$28, DW_AT_decl_column(0x29)
+     286            
+     287            $C$DW$T$2       .dwtag  DW_TAG_unspecified_type
+     288                    .dwattr $C$DW$T$2, DW_AT_name("void")
+     289            
+     290            
+     291            $C$DW$T$29      .dwtag  DW_TAG_subroutine_type
+     292                    .dwattr $C$DW$T$29, DW_AT_language(DW_LANG_C)
+     293                    .dwendtag $C$DW$T$29
+     294            
+     295            $C$DW$T$30      .dwtag  DW_TAG_pointer_type
+     296                    .dwattr $C$DW$T$30, DW_AT_type(*$C$DW$T$29)
+     297                    .dwattr $C$DW$T$30, DW_AT_address_class(0x14)
+     298            
+     299            $C$DW$T$31      .dwtag  DW_TAG_typedef
+     300                    .dwattr $C$DW$T$31, DW_AT_name("__TI_atexit_fn")
+     301                    .dwattr $C$DW$T$31, DW_AT_type(*$C$DW$T$30)
+     302                    .dwattr $C$DW$T$31, DW_AT_language(DW_LANG_C)
+     303                    .dwattr $C$DW$T$31, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     304                    .dwattr $C$DW$T$31, DW_AT_decl_line(0xcf)
+     305                    .dwattr $C$DW$T$31, DW_AT_decl_column(0x14)
+     306            
+     307            
+     308            $C$DW$T$32      .dwtag  DW_TAG_subroutine_type
+     309                    .dwattr $C$DW$T$32, DW_AT_language(DW_LANG_C)
+     310                    .dwendtag $C$DW$T$32
+     311            
+     312            $C$DW$T$33      .dwtag  DW_TAG_pointer_type
+     313                    .dwattr $C$DW$T$33, DW_AT_type(*$C$DW$T$32)
+     314                    .dwattr $C$DW$T$33, DW_AT_address_class(0x14)
+     315            
+     316            $C$DW$T$34      .dwtag  DW_TAG_typedef
+     317                    .dwattr $C$DW$T$34, DW_AT_name("__SFR_FARPTR")
+     318                    .dwattr $C$DW$T$34, DW_AT_type(*$C$DW$T$33)
+     319                    .dwattr $C$DW$T$34, DW_AT_language(DW_LANG_C)
+     320                    .dwattr $C$DW$T$34, DW_AT_decl_file("C:\ti\ccs1250\ccs\ccs_base\msp430\include\msp430fg6626.h"
+     321                    .dwattr $C$DW$T$34, DW_AT_decl_line(0x46)
+     322                    .dwattr $C$DW$T$34, DW_AT_decl_column(0x11)
+     323            
+     324            $C$DW$14        .dwtag  DW_TAG_TI_far_type
+     325                    .dwattr $C$DW$14, DW_AT_type(*$C$DW$T$2)
+     326            
+     327            $C$DW$T$35      .dwtag  DW_TAG_const_type
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    7
+
+     328                    .dwattr $C$DW$T$35, DW_AT_type(*$C$DW$14)
+     329            
+     330            $C$DW$T$36      .dwtag  DW_TAG_pointer_type
+     331                    .dwattr $C$DW$T$36, DW_AT_type(*$C$DW$T$35)
+     332                    .dwattr $C$DW$T$36, DW_AT_address_class(0x14)
+     333            
+     334            $C$DW$T$4       .dwtag  DW_TAG_base_type
+     335                    .dwattr $C$DW$T$4, DW_AT_encoding(DW_ATE_boolean)
+     336                    .dwattr $C$DW$T$4, DW_AT_name("bool")
+     337                    .dwattr $C$DW$T$4, DW_AT_byte_size(0x01)
+     338            
+     339            $C$DW$T$5       .dwtag  DW_TAG_base_type
+     340                    .dwattr $C$DW$T$5, DW_AT_encoding(DW_ATE_signed_char)
+     341                    .dwattr $C$DW$T$5, DW_AT_name("signed char")
+     342                    .dwattr $C$DW$T$5, DW_AT_byte_size(0x01)
+     343            
+     344            $C$DW$T$37      .dwtag  DW_TAG_typedef
+     345                    .dwattr $C$DW$T$37, DW_AT_name("__int8_t")
+     346                    .dwattr $C$DW$T$37, DW_AT_type(*$C$DW$T$5)
+     347                    .dwattr $C$DW$T$37, DW_AT_language(DW_LANG_C)
+     348                    .dwattr $C$DW$T$37, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     349                    .dwattr $C$DW$T$37, DW_AT_decl_line(0x36)
+     350                    .dwattr $C$DW$T$37, DW_AT_decl_column(0x16)
+     351            
+     352            $C$DW$T$38      .dwtag  DW_TAG_typedef
+     353                    .dwattr $C$DW$T$38, DW_AT_name("__int_least8_t")
+     354                    .dwattr $C$DW$T$38, DW_AT_type(*$C$DW$T$37)
+     355                    .dwattr $C$DW$T$38, DW_AT_language(DW_LANG_C)
+     356                    .dwattr $C$DW$T$38, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     357                    .dwattr $C$DW$T$38, DW_AT_decl_line(0x5a)
+     358                    .dwattr $C$DW$T$38, DW_AT_decl_column(0x12)
+     359            
+     360            $C$DW$T$39      .dwtag  DW_TAG_typedef
+     361                    .dwattr $C$DW$T$39, DW_AT_name("int_least8_t")
+     362                    .dwattr $C$DW$T$39, DW_AT_type(*$C$DW$T$38)
+     363                    .dwattr $C$DW$T$39, DW_AT_language(DW_LANG_C)
+     364                    .dwattr $C$DW$T$39, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     365                    .dwattr $C$DW$T$39, DW_AT_decl_line(0x2a)
+     366                    .dwattr $C$DW$T$39, DW_AT_decl_column(0x19)
+     367            
+     368            $C$DW$T$40      .dwtag  DW_TAG_typedef
+     369                    .dwattr $C$DW$T$40, DW_AT_name("int8_t")
+     370                    .dwattr $C$DW$T$40, DW_AT_type(*$C$DW$T$37)
+     371                    .dwattr $C$DW$T$40, DW_AT_language(DW_LANG_C)
+     372                    .dwattr $C$DW$T$40, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     373                    .dwattr $C$DW$T$40, DW_AT_decl_line(0x25)
+     374                    .dwattr $C$DW$T$40, DW_AT_decl_column(0x13)
+     375            
+     376            $C$DW$T$6       .dwtag  DW_TAG_base_type
+     377                    .dwattr $C$DW$T$6, DW_AT_encoding(DW_ATE_unsigned_char)
+     378                    .dwattr $C$DW$T$6, DW_AT_name("unsigned char")
+     379                    .dwattr $C$DW$T$6, DW_AT_byte_size(0x01)
+     380            
+     381            $C$DW$T$41      .dwtag  DW_TAG_typedef
+     382                    .dwattr $C$DW$T$41, DW_AT_name("__uint8_t")
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    8
+
+     383                    .dwattr $C$DW$T$41, DW_AT_type(*$C$DW$T$6)
+     384                    .dwattr $C$DW$T$41, DW_AT_language(DW_LANG_C)
+     385                    .dwattr $C$DW$T$41, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     386                    .dwattr $C$DW$T$41, DW_AT_decl_line(0x37)
+     387                    .dwattr $C$DW$T$41, DW_AT_decl_column(0x18)
+     388            
+     389            $C$DW$T$42      .dwtag  DW_TAG_typedef
+     390                    .dwattr $C$DW$T$42, DW_AT_name("__sa_family_t")
+     391                    .dwattr $C$DW$T$42, DW_AT_type(*$C$DW$T$41)
+     392                    .dwattr $C$DW$T$42, DW_AT_language(DW_LANG_C)
+     393                    .dwattr $C$DW$T$42, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     394                    .dwattr $C$DW$T$42, DW_AT_decl_line(0x47)
+     395                    .dwattr $C$DW$T$42, DW_AT_decl_column(0x13)
+     396            
+     397            $C$DW$T$43      .dwtag  DW_TAG_typedef
+     398                    .dwattr $C$DW$T$43, DW_AT_name("__uint_least8_t")
+     399                    .dwattr $C$DW$T$43, DW_AT_type(*$C$DW$T$41)
+     400                    .dwattr $C$DW$T$43, DW_AT_language(DW_LANG_C)
+     401                    .dwattr $C$DW$T$43, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     402                    .dwattr $C$DW$T$43, DW_AT_decl_line(0x74)
+     403                    .dwattr $C$DW$T$43, DW_AT_decl_column(0x13)
+     404            
+     405            $C$DW$T$44      .dwtag  DW_TAG_typedef
+     406                    .dwattr $C$DW$T$44, DW_AT_name("uint_least8_t")
+     407                    .dwattr $C$DW$T$44, DW_AT_type(*$C$DW$T$43)
+     408                    .dwattr $C$DW$T$44, DW_AT_language(DW_LANG_C)
+     409                    .dwattr $C$DW$T$44, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     410                    .dwattr $C$DW$T$44, DW_AT_decl_line(0x2f)
+     411                    .dwattr $C$DW$T$44, DW_AT_decl_column(0x1a)
+     412            
+     413            $C$DW$T$45      .dwtag  DW_TAG_typedef
+     414                    .dwattr $C$DW$T$45, DW_AT_name("uint8_t")
+     415                    .dwattr $C$DW$T$45, DW_AT_type(*$C$DW$T$41)
+     416                    .dwattr $C$DW$T$45, DW_AT_language(DW_LANG_C)
+     417                    .dwattr $C$DW$T$45, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     418                    .dwattr $C$DW$T$45, DW_AT_decl_line(0x3b)
+     419                    .dwattr $C$DW$T$45, DW_AT_decl_column(0x14)
+     420            
+     421            $C$DW$T$7       .dwtag  DW_TAG_base_type
+     422                    .dwattr $C$DW$T$7, DW_AT_encoding(DW_ATE_signed_char)
+     423                    .dwattr $C$DW$T$7, DW_AT_name("wchar_t")
+     424                    .dwattr $C$DW$T$7, DW_AT_byte_size(0x02)
+     425            
+     426            $C$DW$T$8       .dwtag  DW_TAG_base_type
+     427                    .dwattr $C$DW$T$8, DW_AT_encoding(DW_ATE_signed)
+     428                    .dwattr $C$DW$T$8, DW_AT_name("short")
+     429                    .dwattr $C$DW$T$8, DW_AT_byte_size(0x02)
+     430            
+     431            $C$DW$T$9       .dwtag  DW_TAG_base_type
+     432                    .dwattr $C$DW$T$9, DW_AT_encoding(DW_ATE_unsigned)
+     433                    .dwattr $C$DW$T$9, DW_AT_name("unsigned short")
+     434                    .dwattr $C$DW$T$9, DW_AT_byte_size(0x02)
+     435            
+     436            $C$DW$T$10      .dwtag  DW_TAG_base_type
+     437                    .dwattr $C$DW$T$10, DW_AT_encoding(DW_ATE_signed)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE    9
+
+     438                    .dwattr $C$DW$T$10, DW_AT_name("int")
+     439                    .dwattr $C$DW$T$10, DW_AT_byte_size(0x02)
+     440            
+     441            $C$DW$T$46      .dwtag  DW_TAG_typedef
+     442                    .dwattr $C$DW$T$46, DW_AT_name("_Mbstatet")
+     443                    .dwattr $C$DW$T$46, DW_AT_type(*$C$DW$T$10)
+     444                    .dwattr $C$DW$T$46, DW_AT_language(DW_LANG_C)
+     445                    .dwattr $C$DW$T$46, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     446                    .dwattr $C$DW$T$46, DW_AT_decl_line(0x8f)
+     447                    .dwattr $C$DW$T$46, DW_AT_decl_column(0x0d)
+     448            
+     449            $C$DW$T$47      .dwtag  DW_TAG_typedef
+     450                    .dwattr $C$DW$T$47, DW_AT_name("__mbstate_t")
+     451                    .dwattr $C$DW$T$47, DW_AT_type(*$C$DW$T$46)
+     452                    .dwattr $C$DW$T$47, DW_AT_language(DW_LANG_C)
+     453                    .dwattr $C$DW$T$47, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     454                    .dwattr $C$DW$T$47, DW_AT_decl_line(0x92)
+     455                    .dwattr $C$DW$T$47, DW_AT_decl_column(0x13)
+     456            
+     457            $C$DW$T$48      .dwtag  DW_TAG_typedef
+     458                    .dwattr $C$DW$T$48, DW_AT_name("__accmode_t")
+     459                    .dwattr $C$DW$T$48, DW_AT_type(*$C$DW$T$10)
+     460                    .dwattr $C$DW$T$48, DW_AT_language(DW_LANG_C)
+     461                    .dwattr $C$DW$T$48, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     462                    .dwattr $C$DW$T$48, DW_AT_decl_line(0x3b)
+     463                    .dwattr $C$DW$T$48, DW_AT_decl_column(0x0e)
+     464            
+     465            
+     466            $C$DW$T$49      .dwtag  DW_TAG_subroutine_type
+     467                    .dwattr $C$DW$T$49, DW_AT_type(*$C$DW$T$10)
+     468                    .dwattr $C$DW$T$49, DW_AT_language(DW_LANG_C)
+     469            $C$DW$15        .dwtag  DW_TAG_formal_parameter
+     470                    .dwattr $C$DW$15, DW_AT_type(*$C$DW$T$36)
+     471            
+     472            $C$DW$16        .dwtag  DW_TAG_formal_parameter
+     473                    .dwattr $C$DW$16, DW_AT_type(*$C$DW$T$36)
+     474            
+     475                    .dwendtag $C$DW$T$49
+     476            
+     477            $C$DW$T$50      .dwtag  DW_TAG_pointer_type
+     478                    .dwattr $C$DW$T$50, DW_AT_type(*$C$DW$T$49)
+     479                    .dwattr $C$DW$T$50, DW_AT_address_class(0x14)
+     480            
+     481            $C$DW$T$51      .dwtag  DW_TAG_typedef
+     482                    .dwattr $C$DW$T$51, DW_AT_name("__TI_compar_fn")
+     483                    .dwattr $C$DW$T$51, DW_AT_type(*$C$DW$T$50)
+     484                    .dwattr $C$DW$T$51, DW_AT_language(DW_LANG_C)
+     485                    .dwattr $C$DW$T$51, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     486                    .dwattr $C$DW$T$51, DW_AT_decl_line(0xd2)
+     487                    .dwattr $C$DW$T$51, DW_AT_decl_column(0x13)
+     488            
+     489            $C$DW$T$52      .dwtag  DW_TAG_typedef
+     490                    .dwattr $C$DW$T$52, DW_AT_name("__cpulevel_t")
+     491                    .dwattr $C$DW$T$52, DW_AT_type(*$C$DW$T$10)
+     492                    .dwattr $C$DW$T$52, DW_AT_language(DW_LANG_C)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   10
+
+     493                    .dwattr $C$DW$T$52, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     494                    .dwattr $C$DW$T$52, DW_AT_decl_line(0x50)
+     495                    .dwattr $C$DW$T$52, DW_AT_decl_column(0x0e)
+     496            
+     497            $C$DW$T$53      .dwtag  DW_TAG_typedef
+     498                    .dwattr $C$DW$T$53, DW_AT_name("__cpusetid_t")
+     499                    .dwattr $C$DW$T$53, DW_AT_type(*$C$DW$T$10)
+     500                    .dwattr $C$DW$T$53, DW_AT_language(DW_LANG_C)
+     501                    .dwattr $C$DW$T$53, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     502                    .dwattr $C$DW$T$53, DW_AT_decl_line(0x51)
+     503                    .dwattr $C$DW$T$53, DW_AT_decl_column(0x0e)
+     504            
+     505            $C$DW$T$54      .dwtag  DW_TAG_typedef
+     506                    .dwattr $C$DW$T$54, DW_AT_name("__cpuwhich_t")
+     507                    .dwattr $C$DW$T$54, DW_AT_type(*$C$DW$T$10)
+     508                    .dwattr $C$DW$T$54, DW_AT_language(DW_LANG_C)
+     509                    .dwattr $C$DW$T$54, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     510                    .dwattr $C$DW$T$54, DW_AT_decl_line(0x4f)
+     511                    .dwattr $C$DW$T$54, DW_AT_decl_column(0x0e)
+     512            
+     513            $C$DW$T$55      .dwtag  DW_TAG_typedef
+     514                    .dwattr $C$DW$T$55, DW_AT_name("__ct_rune_t")
+     515                    .dwattr $C$DW$T$55, DW_AT_type(*$C$DW$T$10)
+     516                    .dwattr $C$DW$T$55, DW_AT_language(DW_LANG_C)
+     517                    .dwattr $C$DW$T$55, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     518                    .dwattr $C$DW$T$55, DW_AT_decl_line(0x69)
+     519                    .dwattr $C$DW$T$55, DW_AT_decl_column(0x0e)
+     520            
+     521            $C$DW$T$56      .dwtag  DW_TAG_typedef
+     522                    .dwattr $C$DW$T$56, DW_AT_name("__rune_t")
+     523                    .dwattr $C$DW$T$56, DW_AT_type(*$C$DW$T$55)
+     524                    .dwattr $C$DW$T$56, DW_AT_language(DW_LANG_C)
+     525                    .dwattr $C$DW$T$56, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     526                    .dwattr $C$DW$T$56, DW_AT_decl_line(0x6c)
+     527                    .dwattr $C$DW$T$56, DW_AT_decl_column(0x15)
+     528            
+     529            $C$DW$T$57      .dwtag  DW_TAG_typedef
+     530                    .dwattr $C$DW$T$57, DW_AT_name("__wint_t")
+     531                    .dwattr $C$DW$T$57, DW_AT_type(*$C$DW$T$55)
+     532                    .dwattr $C$DW$T$57, DW_AT_language(DW_LANG_C)
+     533                    .dwattr $C$DW$T$57, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     534                    .dwattr $C$DW$T$57, DW_AT_decl_line(0x6d)
+     535                    .dwattr $C$DW$T$57, DW_AT_decl_column(0x15)
+     536            
+     537            $C$DW$T$58      .dwtag  DW_TAG_typedef
+     538                    .dwattr $C$DW$T$58, DW_AT_name("__int16_t")
+     539                    .dwattr $C$DW$T$58, DW_AT_type(*$C$DW$T$10)
+     540                    .dwattr $C$DW$T$58, DW_AT_language(DW_LANG_C)
+     541                    .dwattr $C$DW$T$58, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     542                    .dwattr $C$DW$T$58, DW_AT_decl_line(0x38)
+     543                    .dwattr $C$DW$T$58, DW_AT_decl_column(0x0f)
+     544            
+     545            $C$DW$T$59      .dwtag  DW_TAG_typedef
+     546                    .dwattr $C$DW$T$59, DW_AT_name("__int_fast16_t")
+     547                    .dwattr $C$DW$T$59, DW_AT_type(*$C$DW$T$58)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   11
+
+     548                    .dwattr $C$DW$T$59, DW_AT_language(DW_LANG_C)
+     549                    .dwattr $C$DW$T$59, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     550                    .dwattr $C$DW$T$59, DW_AT_decl_line(0x57)
+     551                    .dwattr $C$DW$T$59, DW_AT_decl_column(0x13)
+     552            
+     553            $C$DW$T$60      .dwtag  DW_TAG_typedef
+     554                    .dwattr $C$DW$T$60, DW_AT_name("int_fast16_t")
+     555                    .dwattr $C$DW$T$60, DW_AT_type(*$C$DW$T$59)
+     556                    .dwattr $C$DW$T$60, DW_AT_language(DW_LANG_C)
+     557                    .dwattr $C$DW$T$60, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     558                    .dwattr $C$DW$T$60, DW_AT_decl_line(0x35)
+     559                    .dwattr $C$DW$T$60, DW_AT_decl_column(0x19)
+     560            
+     561            $C$DW$T$61      .dwtag  DW_TAG_typedef
+     562                    .dwattr $C$DW$T$61, DW_AT_name("__int_fast8_t")
+     563                    .dwattr $C$DW$T$61, DW_AT_type(*$C$DW$T$58)
+     564                    .dwattr $C$DW$T$61, DW_AT_language(DW_LANG_C)
+     565                    .dwattr $C$DW$T$61, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     566                    .dwattr $C$DW$T$61, DW_AT_decl_line(0x56)
+     567                    .dwattr $C$DW$T$61, DW_AT_decl_column(0x13)
+     568            
+     569            $C$DW$T$62      .dwtag  DW_TAG_typedef
+     570                    .dwattr $C$DW$T$62, DW_AT_name("int_fast8_t")
+     571                    .dwattr $C$DW$T$62, DW_AT_type(*$C$DW$T$61)
+     572                    .dwattr $C$DW$T$62, DW_AT_language(DW_LANG_C)
+     573                    .dwattr $C$DW$T$62, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     574                    .dwattr $C$DW$T$62, DW_AT_decl_line(0x34)
+     575                    .dwattr $C$DW$T$62, DW_AT_decl_column(0x18)
+     576            
+     577            $C$DW$T$63      .dwtag  DW_TAG_typedef
+     578                    .dwattr $C$DW$T$63, DW_AT_name("__int_least16_t")
+     579                    .dwattr $C$DW$T$63, DW_AT_type(*$C$DW$T$58)
+     580                    .dwattr $C$DW$T$63, DW_AT_language(DW_LANG_C)
+     581                    .dwattr $C$DW$T$63, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     582                    .dwattr $C$DW$T$63, DW_AT_decl_line(0x5b)
+     583                    .dwattr $C$DW$T$63, DW_AT_decl_column(0x13)
+     584            
+     585            $C$DW$T$64      .dwtag  DW_TAG_typedef
+     586                    .dwattr $C$DW$T$64, DW_AT_name("int_least16_t")
+     587                    .dwattr $C$DW$T$64, DW_AT_type(*$C$DW$T$63)
+     588                    .dwattr $C$DW$T$64, DW_AT_language(DW_LANG_C)
+     589                    .dwattr $C$DW$T$64, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     590                    .dwattr $C$DW$T$64, DW_AT_decl_line(0x2b)
+     591                    .dwattr $C$DW$T$64, DW_AT_decl_column(0x1a)
+     592            
+     593            $C$DW$T$65      .dwtag  DW_TAG_typedef
+     594                    .dwattr $C$DW$T$65, DW_AT_name("__register_t")
+     595                    .dwattr $C$DW$T$65, DW_AT_type(*$C$DW$T$58)
+     596                    .dwattr $C$DW$T$65, DW_AT_language(DW_LANG_C)
+     597                    .dwattr $C$DW$T$65, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     598                    .dwattr $C$DW$T$65, DW_AT_decl_line(0x5f)
+     599                    .dwattr $C$DW$T$65, DW_AT_decl_column(0x13)
+     600            
+     601            $C$DW$T$66      .dwtag  DW_TAG_typedef
+     602                    .dwattr $C$DW$T$66, DW_AT_name("int16_t")
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   12
+
+     603                    .dwattr $C$DW$T$66, DW_AT_type(*$C$DW$T$58)
+     604                    .dwattr $C$DW$T$66, DW_AT_language(DW_LANG_C)
+     605                    .dwattr $C$DW$T$66, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     606                    .dwattr $C$DW$T$66, DW_AT_decl_line(0x2b)
+     607                    .dwattr $C$DW$T$66, DW_AT_decl_column(0x14)
+     608            
+     609            $C$DW$T$67      .dwtag  DW_TAG_typedef
+     610                    .dwattr $C$DW$T$67, DW_AT_name("__nl_item")
+     611                    .dwattr $C$DW$T$67, DW_AT_type(*$C$DW$T$10)
+     612                    .dwattr $C$DW$T$67, DW_AT_language(DW_LANG_C)
+     613                    .dwattr $C$DW$T$67, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     614                    .dwattr $C$DW$T$67, DW_AT_decl_line(0x3c)
+     615                    .dwattr $C$DW$T$67, DW_AT_decl_column(0x0e)
+     616            
+     617            $C$DW$T$68      .dwtag  DW_TAG_typedef
+     618                    .dwattr $C$DW$T$68, DW_AT_name("__ptrdiff_t")
+     619                    .dwattr $C$DW$T$68, DW_AT_type(*$C$DW$T$10)
+     620                    .dwattr $C$DW$T$68, DW_AT_language(DW_LANG_C)
+     621                    .dwattr $C$DW$T$68, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     622                    .dwattr $C$DW$T$68, DW_AT_decl_line(0x5e)
+     623                    .dwattr $C$DW$T$68, DW_AT_decl_column(0x1c)
+     624            
+     625            $C$DW$T$11      .dwtag  DW_TAG_base_type
+     626                    .dwattr $C$DW$T$11, DW_AT_encoding(DW_ATE_unsigned)
+     627                    .dwattr $C$DW$T$11, DW_AT_name("unsigned int")
+     628                    .dwattr $C$DW$T$11, DW_AT_byte_size(0x02)
+     629            
+     630            $C$DW$T$69      .dwtag  DW_TAG_typedef
+     631                    .dwattr $C$DW$T$69, DW_AT_name("___wchar_t")
+     632                    .dwattr $C$DW$T$69, DW_AT_type(*$C$DW$T$11)
+     633                    .dwattr $C$DW$T$69, DW_AT_language(DW_LANG_C)
+     634                    .dwattr $C$DW$T$69, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     635                    .dwattr $C$DW$T$69, DW_AT_decl_line(0x7d)
+     636                    .dwattr $C$DW$T$69, DW_AT_decl_column(0x1a)
+     637            
+     638            $C$DW$17        .dwtag  DW_TAG_TI_far_type
+     639                    .dwattr $C$DW$17, DW_AT_type(*$C$DW$T$11)
+     640            
+     641            $C$DW$T$70      .dwtag  DW_TAG_volatile_type
+     642                    .dwattr $C$DW$T$70, DW_AT_type(*$C$DW$17)
+     643            
+     644            $C$DW$T$71      .dwtag  DW_TAG_typedef
+     645                    .dwattr $C$DW$T$71, DW_AT_name("__size_t")
+     646                    .dwattr $C$DW$T$71, DW_AT_type(*$C$DW$T$11)
+     647                    .dwattr $C$DW$T$71, DW_AT_language(DW_LANG_C)
+     648                    .dwattr $C$DW$T$71, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     649                    .dwattr $C$DW$T$71, DW_AT_decl_line(0x61)
+     650                    .dwattr $C$DW$T$71, DW_AT_decl_column(0x19)
+     651            
+     652            $C$DW$T$72      .dwtag  DW_TAG_typedef
+     653                    .dwattr $C$DW$T$72, DW_AT_name("__uint16_t")
+     654                    .dwattr $C$DW$T$72, DW_AT_type(*$C$DW$T$11)
+     655                    .dwattr $C$DW$T$72, DW_AT_language(DW_LANG_C)
+     656                    .dwattr $C$DW$T$72, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     657                    .dwattr $C$DW$T$72, DW_AT_decl_line(0x39)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   13
+
+     658                    .dwattr $C$DW$T$72, DW_AT_decl_column(0x17)
+     659            
+     660            $C$DW$T$73      .dwtag  DW_TAG_typedef
+     661                    .dwattr $C$DW$T$73, DW_AT_name("__mode_t")
+     662                    .dwattr $C$DW$T$73, DW_AT_type(*$C$DW$T$72)
+     663                    .dwattr $C$DW$T$73, DW_AT_language(DW_LANG_C)
+     664                    .dwattr $C$DW$T$73, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     665                    .dwattr $C$DW$T$73, DW_AT_decl_line(0x3a)
+     666                    .dwattr $C$DW$T$73, DW_AT_decl_column(0x14)
+     667            
+     668            $C$DW$T$74      .dwtag  DW_TAG_typedef
+     669                    .dwattr $C$DW$T$74, DW_AT_name("__u_register_t")
+     670                    .dwattr $C$DW$T$74, DW_AT_type(*$C$DW$T$72)
+     671                    .dwattr $C$DW$T$74, DW_AT_language(DW_LANG_C)
+     672                    .dwattr $C$DW$T$74, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     673                    .dwattr $C$DW$T$74, DW_AT_decl_line(0x78)
+     674                    .dwattr $C$DW$T$74, DW_AT_decl_column(0x14)
+     675            
+     676            $C$DW$T$75      .dwtag  DW_TAG_typedef
+     677                    .dwattr $C$DW$T$75, DW_AT_name("__uint_fast16_t")
+     678                    .dwattr $C$DW$T$75, DW_AT_type(*$C$DW$T$72)
+     679                    .dwattr $C$DW$T$75, DW_AT_language(DW_LANG_C)
+     680                    .dwattr $C$DW$T$75, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     681                    .dwattr $C$DW$T$75, DW_AT_decl_line(0x71)
+     682                    .dwattr $C$DW$T$75, DW_AT_decl_column(0x14)
+     683            
+     684            $C$DW$T$76      .dwtag  DW_TAG_typedef
+     685                    .dwattr $C$DW$T$76, DW_AT_name("uint_fast16_t")
+     686                    .dwattr $C$DW$T$76, DW_AT_type(*$C$DW$T$75)
+     687                    .dwattr $C$DW$T$76, DW_AT_language(DW_LANG_C)
+     688                    .dwattr $C$DW$T$76, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     689                    .dwattr $C$DW$T$76, DW_AT_decl_line(0x3a)
+     690                    .dwattr $C$DW$T$76, DW_AT_decl_column(0x1a)
+     691            
+     692            $C$DW$T$77      .dwtag  DW_TAG_typedef
+     693                    .dwattr $C$DW$T$77, DW_AT_name("__uint_fast8_t")
+     694                    .dwattr $C$DW$T$77, DW_AT_type(*$C$DW$T$72)
+     695                    .dwattr $C$DW$T$77, DW_AT_language(DW_LANG_C)
+     696                    .dwattr $C$DW$T$77, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     697                    .dwattr $C$DW$T$77, DW_AT_decl_line(0x70)
+     698                    .dwattr $C$DW$T$77, DW_AT_decl_column(0x14)
+     699            
+     700            $C$DW$T$78      .dwtag  DW_TAG_typedef
+     701                    .dwattr $C$DW$T$78, DW_AT_name("uint_fast8_t")
+     702                    .dwattr $C$DW$T$78, DW_AT_type(*$C$DW$T$77)
+     703                    .dwattr $C$DW$T$78, DW_AT_language(DW_LANG_C)
+     704                    .dwattr $C$DW$T$78, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     705                    .dwattr $C$DW$T$78, DW_AT_decl_line(0x39)
+     706                    .dwattr $C$DW$T$78, DW_AT_decl_column(0x19)
+     707            
+     708            $C$DW$T$79      .dwtag  DW_TAG_typedef
+     709                    .dwattr $C$DW$T$79, DW_AT_name("__uint_least16_t")
+     710                    .dwattr $C$DW$T$79, DW_AT_type(*$C$DW$T$72)
+     711                    .dwattr $C$DW$T$79, DW_AT_language(DW_LANG_C)
+     712                    .dwattr $C$DW$T$79, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   14
+
+     713                    .dwattr $C$DW$T$79, DW_AT_decl_line(0x75)
+     714                    .dwattr $C$DW$T$79, DW_AT_decl_column(0x14)
+     715            
+     716            $C$DW$T$80      .dwtag  DW_TAG_typedef
+     717                    .dwattr $C$DW$T$80, DW_AT_name("__char16_t")
+     718                    .dwattr $C$DW$T$80, DW_AT_type(*$C$DW$T$79)
+     719                    .dwattr $C$DW$T$80, DW_AT_language(DW_LANG_C)
+     720                    .dwattr $C$DW$T$80, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     721                    .dwattr $C$DW$T$80, DW_AT_decl_line(0x71)
+     722                    .dwattr $C$DW$T$80, DW_AT_decl_column(0x1a)
+     723            
+     724            $C$DW$T$81      .dwtag  DW_TAG_typedef
+     725                    .dwattr $C$DW$T$81, DW_AT_name("uint_least16_t")
+     726                    .dwattr $C$DW$T$81, DW_AT_type(*$C$DW$T$79)
+     727                    .dwattr $C$DW$T$81, DW_AT_language(DW_LANG_C)
+     728                    .dwattr $C$DW$T$81, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     729                    .dwattr $C$DW$T$81, DW_AT_decl_line(0x30)
+     730                    .dwattr $C$DW$T$81, DW_AT_decl_column(0x1a)
+     731            
+     732            $C$DW$T$82      .dwtag  DW_TAG_typedef
+     733                    .dwattr $C$DW$T$82, DW_AT_name("uint16_t")
+     734                    .dwattr $C$DW$T$82, DW_AT_type(*$C$DW$T$72)
+     735                    .dwattr $C$DW$T$82, DW_AT_language(DW_LANG_C)
+     736                    .dwattr $C$DW$T$82, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     737                    .dwattr $C$DW$T$82, DW_AT_decl_line(0x41)
+     738                    .dwattr $C$DW$T$82, DW_AT_decl_column(0x15)
+     739            
+     740            $C$DW$T$83      .dwtag  DW_TAG_typedef
+     741                    .dwattr $C$DW$T$83, DW_AT_name("__useconds_t")
+     742                    .dwattr $C$DW$T$83, DW_AT_type(*$C$DW$T$11)
+     743                    .dwattr $C$DW$T$83, DW_AT_language(DW_LANG_C)
+     744                    .dwattr $C$DW$T$83, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     745                    .dwattr $C$DW$T$83, DW_AT_decl_line(0x4e)
+     746                    .dwattr $C$DW$T$83, DW_AT_decl_column(0x16)
+     747            
+     748            $C$DW$T$84      .dwtag  DW_TAG_typedef
+     749                    .dwattr $C$DW$T$84, DW_AT_name("size_t")
+     750                    .dwattr $C$DW$T$84, DW_AT_type(*$C$DW$T$11)
+     751                    .dwattr $C$DW$T$84, DW_AT_language(DW_LANG_C)
+     752                    .dwattr $C$DW$T$84, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     753                    .dwattr $C$DW$T$84, DW_AT_decl_line(0x79)
+     754                    .dwattr $C$DW$T$84, DW_AT_decl_column(0x19)
+     755            
+     756            $C$DW$T$85      .dwtag  DW_TAG_typedef
+     757                    .dwattr $C$DW$T$85, DW_AT_name("wchar_t")
+     758                    .dwattr $C$DW$T$85, DW_AT_type(*$C$DW$T$11)
+     759                    .dwattr $C$DW$T$85, DW_AT_language(DW_LANG_C)
+     760                    .dwattr $C$DW$T$85, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     761                    .dwattr $C$DW$T$85, DW_AT_decl_line(0x83)
+     762                    .dwattr $C$DW$T$85, DW_AT_decl_column(0x1a)
+     763            
+     764            $C$DW$T$12      .dwtag  DW_TAG_base_type
+     765                    .dwattr $C$DW$T$12, DW_AT_encoding(DW_ATE_signed)
+     766                    .dwattr $C$DW$T$12, DW_AT_name("long")
+     767                    .dwattr $C$DW$T$12, DW_AT_byte_size(0x04)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   15
+
+     768            
+     769            $C$DW$T$86      .dwtag  DW_TAG_typedef
+     770                    .dwattr $C$DW$T$86, DW_AT_name("__int32_t")
+     771                    .dwattr $C$DW$T$86, DW_AT_type(*$C$DW$T$12)
+     772                    .dwattr $C$DW$T$86, DW_AT_language(DW_LANG_C)
+     773                    .dwattr $C$DW$T$86, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     774                    .dwattr $C$DW$T$86, DW_AT_decl_line(0x3a)
+     775                    .dwattr $C$DW$T$86, DW_AT_decl_column(0x10)
+     776            
+     777            $C$DW$T$87      .dwtag  DW_TAG_typedef
+     778                    .dwattr $C$DW$T$87, DW_AT_name("__blksize_t")
+     779                    .dwattr $C$DW$T$87, DW_AT_type(*$C$DW$T$86)
+     780                    .dwattr $C$DW$T$87, DW_AT_language(DW_LANG_C)
+     781                    .dwattr $C$DW$T$87, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     782                    .dwattr $C$DW$T$87, DW_AT_decl_line(0x2f)
+     783                    .dwattr $C$DW$T$87, DW_AT_decl_column(0x13)
+     784            
+     785            $C$DW$T$88      .dwtag  DW_TAG_typedef
+     786                    .dwattr $C$DW$T$88, DW_AT_name("__clockid_t")
+     787                    .dwattr $C$DW$T$88, DW_AT_type(*$C$DW$T$86)
+     788                    .dwattr $C$DW$T$88, DW_AT_language(DW_LANG_C)
+     789                    .dwattr $C$DW$T$88, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     790                    .dwattr $C$DW$T$88, DW_AT_decl_line(0x31)
+     791                    .dwattr $C$DW$T$88, DW_AT_decl_column(0x13)
+     792            
+     793            $C$DW$T$89      .dwtag  DW_TAG_typedef
+     794                    .dwattr $C$DW$T$89, DW_AT_name("__critical_t")
+     795                    .dwattr $C$DW$T$89, DW_AT_type(*$C$DW$T$86)
+     796                    .dwattr $C$DW$T$89, DW_AT_language(DW_LANG_C)
+     797                    .dwattr $C$DW$T$89, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     798                    .dwattr $C$DW$T$89, DW_AT_decl_line(0x4b)
+     799                    .dwattr $C$DW$T$89, DW_AT_decl_column(0x13)
+     800            
+     801            $C$DW$T$90      .dwtag  DW_TAG_typedef
+     802                    .dwattr $C$DW$T$90, DW_AT_name("__int_fast32_t")
+     803                    .dwattr $C$DW$T$90, DW_AT_type(*$C$DW$T$86)
+     804                    .dwattr $C$DW$T$90, DW_AT_language(DW_LANG_C)
+     805                    .dwattr $C$DW$T$90, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     806                    .dwattr $C$DW$T$90, DW_AT_decl_line(0x58)
+     807                    .dwattr $C$DW$T$90, DW_AT_decl_column(0x13)
+     808            
+     809            $C$DW$T$91      .dwtag  DW_TAG_typedef
+     810                    .dwattr $C$DW$T$91, DW_AT_name("int_fast32_t")
+     811                    .dwattr $C$DW$T$91, DW_AT_type(*$C$DW$T$90)
+     812                    .dwattr $C$DW$T$91, DW_AT_language(DW_LANG_C)
+     813                    .dwattr $C$DW$T$91, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     814                    .dwattr $C$DW$T$91, DW_AT_decl_line(0x36)
+     815                    .dwattr $C$DW$T$91, DW_AT_decl_column(0x19)
+     816            
+     817            $C$DW$T$92      .dwtag  DW_TAG_typedef
+     818                    .dwattr $C$DW$T$92, DW_AT_name("__int_least32_t")
+     819                    .dwattr $C$DW$T$92, DW_AT_type(*$C$DW$T$86)
+     820                    .dwattr $C$DW$T$92, DW_AT_language(DW_LANG_C)
+     821                    .dwattr $C$DW$T$92, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     822                    .dwattr $C$DW$T$92, DW_AT_decl_line(0x5c)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   16
+
+     823                    .dwattr $C$DW$T$92, DW_AT_decl_column(0x13)
+     824            
+     825            $C$DW$T$93      .dwtag  DW_TAG_typedef
+     826                    .dwattr $C$DW$T$93, DW_AT_name("int_least32_t")
+     827                    .dwattr $C$DW$T$93, DW_AT_type(*$C$DW$T$92)
+     828                    .dwattr $C$DW$T$93, DW_AT_language(DW_LANG_C)
+     829                    .dwattr $C$DW$T$93, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     830                    .dwattr $C$DW$T$93, DW_AT_decl_line(0x2c)
+     831                    .dwattr $C$DW$T$93, DW_AT_decl_column(0x1a)
+     832            
+     833            $C$DW$T$94      .dwtag  DW_TAG_typedef
+     834                    .dwattr $C$DW$T$94, DW_AT_name("__intfptr_t")
+     835                    .dwattr $C$DW$T$94, DW_AT_type(*$C$DW$T$86)
+     836                    .dwattr $C$DW$T$94, DW_AT_language(DW_LANG_C)
+     837                    .dwattr $C$DW$T$94, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     838                    .dwattr $C$DW$T$94, DW_AT_decl_line(0x4e)
+     839                    .dwattr $C$DW$T$94, DW_AT_decl_column(0x13)
+     840            
+     841            $C$DW$T$95      .dwtag  DW_TAG_typedef
+     842                    .dwattr $C$DW$T$95, DW_AT_name("__intptr_t")
+     843                    .dwattr $C$DW$T$95, DW_AT_type(*$C$DW$T$86)
+     844                    .dwattr $C$DW$T$95, DW_AT_language(DW_LANG_C)
+     845                    .dwattr $C$DW$T$95, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     846                    .dwattr $C$DW$T$95, DW_AT_decl_line(0x51)
+     847                    .dwattr $C$DW$T$95, DW_AT_decl_column(0x13)
+     848            
+     849            $C$DW$T$96      .dwtag  DW_TAG_typedef
+     850                    .dwattr $C$DW$T$96, DW_AT_name("intptr_t")
+     851                    .dwattr $C$DW$T$96, DW_AT_type(*$C$DW$T$95)
+     852                    .dwattr $C$DW$T$96, DW_AT_language(DW_LANG_C)
+     853                    .dwattr $C$DW$T$96, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     854                    .dwattr $C$DW$T$96, DW_AT_decl_line(0x50)
+     855                    .dwattr $C$DW$T$96, DW_AT_decl_column(0x15)
+     856            
+     857            $C$DW$T$97      .dwtag  DW_TAG_typedef
+     858                    .dwattr $C$DW$T$97, DW_AT_name("__lwpid_t")
+     859                    .dwattr $C$DW$T$97, DW_AT_type(*$C$DW$T$86)
+     860                    .dwattr $C$DW$T$97, DW_AT_language(DW_LANG_C)
+     861                    .dwattr $C$DW$T$97, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     862                    .dwattr $C$DW$T$97, DW_AT_decl_line(0x39)
+     863                    .dwattr $C$DW$T$97, DW_AT_decl_column(0x13)
+     864            
+     865            $C$DW$T$98      .dwtag  DW_TAG_typedef
+     866                    .dwattr $C$DW$T$98, DW_AT_name("__pid_t")
+     867                    .dwattr $C$DW$T$98, DW_AT_type(*$C$DW$T$86)
+     868                    .dwattr $C$DW$T$98, DW_AT_language(DW_LANG_C)
+     869                    .dwattr $C$DW$T$98, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+     870                    .dwattr $C$DW$T$98, DW_AT_decl_line(0x40)
+     871                    .dwattr $C$DW$T$98, DW_AT_decl_column(0x13)
+     872            
+     873            $C$DW$T$99      .dwtag  DW_TAG_typedef
+     874                    .dwattr $C$DW$T$99, DW_AT_name("__segsz_t")
+     875                    .dwattr $C$DW$T$99, DW_AT_type(*$C$DW$T$86)
+     876                    .dwattr $C$DW$T$99, DW_AT_language(DW_LANG_C)
+     877                    .dwattr $C$DW$T$99, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   17
+
+     878                    .dwattr $C$DW$T$99, DW_AT_decl_line(0x60)
+     879                    .dwattr $C$DW$T$99, DW_AT_decl_column(0x13)
+     880            
+     881            $C$DW$T$100     .dwtag  DW_TAG_typedef
+     882                    .dwattr $C$DW$T$100, DW_AT_name("__ssize_t")
+     883                    .dwattr $C$DW$T$100, DW_AT_type(*$C$DW$T$86)
+     884                    .dwattr $C$DW$T$100, DW_AT_language(DW_LANG_C)
+     885                    .dwattr $C$DW$T$100, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     886                    .dwattr $C$DW$T$100, DW_AT_decl_line(0x62)
+     887                    .dwattr $C$DW$T$100, DW_AT_decl_column(0x13)
+     888            
+     889            $C$DW$T$101     .dwtag  DW_TAG_typedef
+     890                    .dwattr $C$DW$T$101, DW_AT_name("int32_t")
+     891                    .dwattr $C$DW$T$101, DW_AT_type(*$C$DW$T$86)
+     892                    .dwattr $C$DW$T$101, DW_AT_language(DW_LANG_C)
+     893                    .dwattr $C$DW$T$101, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     894                    .dwattr $C$DW$T$101, DW_AT_decl_line(0x30)
+     895                    .dwattr $C$DW$T$101, DW_AT_decl_column(0x14)
+     896            
+     897            $C$DW$T$102     .dwtag  DW_TAG_typedef
+     898                    .dwattr $C$DW$T$102, DW_AT_name("__key_t")
+     899                    .dwattr $C$DW$T$102, DW_AT_type(*$C$DW$T$12)
+     900                    .dwattr $C$DW$T$102, DW_AT_language(DW_LANG_C)
+     901                    .dwattr $C$DW$T$102, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     902                    .dwattr $C$DW$T$102, DW_AT_decl_line(0x38)
+     903                    .dwattr $C$DW$T$102, DW_AT_decl_column(0x0f)
+     904            
+     905            $C$DW$T$103     .dwtag  DW_TAG_typedef
+     906                    .dwattr $C$DW$T$103, DW_AT_name("__suseconds_t")
+     907                    .dwattr $C$DW$T$103, DW_AT_type(*$C$DW$T$12)
+     908                    .dwattr $C$DW$T$103, DW_AT_language(DW_LANG_C)
+     909                    .dwattr $C$DW$T$103, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     910                    .dwattr $C$DW$T$103, DW_AT_decl_line(0x4a)
+     911                    .dwattr $C$DW$T$103, DW_AT_decl_column(0x0f)
+     912            
+     913            $C$DW$T$104     .dwtag  DW_TAG_typedef
+     914                    .dwattr $C$DW$T$104, DW_AT_name("_off_t")
+     915                    .dwattr $C$DW$T$104, DW_AT_type(*$C$DW$T$12)
+     916                    .dwattr $C$DW$T$104, DW_AT_language(DW_LANG_C)
+     917                    .dwattr $C$DW$T$104, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     918                    .dwattr $C$DW$T$104, DW_AT_decl_line(0x8d)
+     919                    .dwattr $C$DW$T$104, DW_AT_decl_column(0x12)
+     920            
+     921            $C$DW$T$105     .dwtag  DW_TAG_typedef
+     922                    .dwattr $C$DW$T$105, DW_AT_name("__off_t")
+     923                    .dwattr $C$DW$T$105, DW_AT_type(*$C$DW$T$104)
+     924                    .dwattr $C$DW$T$105, DW_AT_language(DW_LANG_C)
+     925                    .dwattr $C$DW$T$105, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     926                    .dwattr $C$DW$T$105, DW_AT_decl_line(0x3e)
+     927                    .dwattr $C$DW$T$105, DW_AT_decl_column(0x18)
+     928            
+     929            $C$DW$T$13      .dwtag  DW_TAG_base_type
+     930                    .dwattr $C$DW$T$13, DW_AT_encoding(DW_ATE_unsigned)
+     931                    .dwattr $C$DW$T$13, DW_AT_name("unsigned long")
+     932                    .dwattr $C$DW$T$13, DW_AT_byte_size(0x04)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   18
+
+     933            
+     934            $C$DW$T$106     .dwtag  DW_TAG_typedef
+     935                    .dwattr $C$DW$T$106, DW_AT_name("__uint32_t")
+     936                    .dwattr $C$DW$T$106, DW_AT_type(*$C$DW$T$13)
+     937                    .dwattr $C$DW$T$106, DW_AT_language(DW_LANG_C)
+     938                    .dwattr $C$DW$T$106, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     939                    .dwattr $C$DW$T$106, DW_AT_decl_line(0x3b)
+     940                    .dwattr $C$DW$T$106, DW_AT_decl_column(0x18)
+     941            
+     942            $C$DW$T$107     .dwtag  DW_TAG_typedef
+     943                    .dwattr $C$DW$T$107, DW_AT_name("__clock_t")
+     944                    .dwattr $C$DW$T$107, DW_AT_type(*$C$DW$T$106)
+     945                    .dwattr $C$DW$T$107, DW_AT_language(DW_LANG_C)
+     946                    .dwattr $C$DW$T$107, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     947                    .dwattr $C$DW$T$107, DW_AT_decl_line(0x4a)
+     948                    .dwattr $C$DW$T$107, DW_AT_decl_column(0x14)
+     949            
+     950            $C$DW$T$108     .dwtag  DW_TAG_typedef
+     951                    .dwattr $C$DW$T$108, DW_AT_name("__fflags_t")
+     952                    .dwattr $C$DW$T$108, DW_AT_type(*$C$DW$T$106)
+     953                    .dwattr $C$DW$T$108, DW_AT_language(DW_LANG_C)
+     954                    .dwattr $C$DW$T$108, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     955                    .dwattr $C$DW$T$108, DW_AT_decl_line(0x32)
+     956                    .dwattr $C$DW$T$108, DW_AT_decl_column(0x14)
+     957            
+     958            $C$DW$T$109     .dwtag  DW_TAG_typedef
+     959                    .dwattr $C$DW$T$109, DW_AT_name("__fixpt_t")
+     960                    .dwattr $C$DW$T$109, DW_AT_type(*$C$DW$T$106)
+     961                    .dwattr $C$DW$T$109, DW_AT_language(DW_LANG_C)
+     962                    .dwattr $C$DW$T$109, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     963                    .dwattr $C$DW$T$109, DW_AT_decl_line(0x81)
+     964                    .dwattr $C$DW$T$109, DW_AT_decl_column(0x14)
+     965            
+     966            $C$DW$T$110     .dwtag  DW_TAG_typedef
+     967                    .dwattr $C$DW$T$110, DW_AT_name("__gid_t")
+     968                    .dwattr $C$DW$T$110, DW_AT_type(*$C$DW$T$106)
+     969                    .dwattr $C$DW$T$110, DW_AT_language(DW_LANG_C)
+     970                    .dwattr $C$DW$T$110, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     971                    .dwattr $C$DW$T$110, DW_AT_decl_line(0x35)
+     972                    .dwattr $C$DW$T$110, DW_AT_decl_column(0x14)
+     973            
+     974            $C$DW$T$111     .dwtag  DW_TAG_typedef
+     975                    .dwattr $C$DW$T$111, DW_AT_name("__socklen_t")
+     976                    .dwattr $C$DW$T$111, DW_AT_type(*$C$DW$T$106)
+     977                    .dwattr $C$DW$T$111, DW_AT_language(DW_LANG_C)
+     978                    .dwattr $C$DW$T$111, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     979                    .dwattr $C$DW$T$111, DW_AT_decl_line(0x49)
+     980                    .dwattr $C$DW$T$111, DW_AT_decl_column(0x14)
+     981            
+     982            $C$DW$T$112     .dwtag  DW_TAG_typedef
+     983                    .dwattr $C$DW$T$112, DW_AT_name("__time_t")
+     984                    .dwattr $C$DW$T$112, DW_AT_type(*$C$DW$T$106)
+     985                    .dwattr $C$DW$T$112, DW_AT_language(DW_LANG_C)
+     986                    .dwattr $C$DW$T$112, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     987                    .dwattr $C$DW$T$112, DW_AT_decl_line(0x66)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   19
+
+     988                    .dwattr $C$DW$T$112, DW_AT_decl_column(0x19)
+     989            
+     990            $C$DW$T$113     .dwtag  DW_TAG_typedef
+     991                    .dwattr $C$DW$T$113, DW_AT_name("__uid_t")
+     992                    .dwattr $C$DW$T$113, DW_AT_type(*$C$DW$T$106)
+     993                    .dwattr $C$DW$T$113, DW_AT_language(DW_LANG_C)
+     994                    .dwattr $C$DW$T$113, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+     995                    .dwattr $C$DW$T$113, DW_AT_decl_line(0x4d)
+     996                    .dwattr $C$DW$T$113, DW_AT_decl_column(0x14)
+     997            
+     998            $C$DW$T$114     .dwtag  DW_TAG_typedef
+     999                    .dwattr $C$DW$T$114, DW_AT_name("__uint_fast32_t")
+    1000                    .dwattr $C$DW$T$114, DW_AT_type(*$C$DW$T$106)
+    1001                    .dwattr $C$DW$T$114, DW_AT_language(DW_LANG_C)
+    1002                    .dwattr $C$DW$T$114, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1003                    .dwattr $C$DW$T$114, DW_AT_decl_line(0x72)
+    1004                    .dwattr $C$DW$T$114, DW_AT_decl_column(0x14)
+    1005            
+    1006            $C$DW$T$115     .dwtag  DW_TAG_typedef
+    1007                    .dwattr $C$DW$T$115, DW_AT_name("uint_fast32_t")
+    1008                    .dwattr $C$DW$T$115, DW_AT_type(*$C$DW$T$114)
+    1009                    .dwattr $C$DW$T$115, DW_AT_language(DW_LANG_C)
+    1010                    .dwattr $C$DW$T$115, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1011                    .dwattr $C$DW$T$115, DW_AT_decl_line(0x3b)
+    1012                    .dwattr $C$DW$T$115, DW_AT_decl_column(0x1a)
+    1013            
+    1014            $C$DW$T$116     .dwtag  DW_TAG_typedef
+    1015                    .dwattr $C$DW$T$116, DW_AT_name("__uint_least32_t")
+    1016                    .dwattr $C$DW$T$116, DW_AT_type(*$C$DW$T$106)
+    1017                    .dwattr $C$DW$T$116, DW_AT_language(DW_LANG_C)
+    1018                    .dwattr $C$DW$T$116, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1019                    .dwattr $C$DW$T$116, DW_AT_decl_line(0x76)
+    1020                    .dwattr $C$DW$T$116, DW_AT_decl_column(0x14)
+    1021            
+    1022            $C$DW$T$117     .dwtag  DW_TAG_typedef
+    1023                    .dwattr $C$DW$T$117, DW_AT_name("__char32_t")
+    1024                    .dwattr $C$DW$T$117, DW_AT_type(*$C$DW$T$116)
+    1025                    .dwattr $C$DW$T$117, DW_AT_language(DW_LANG_C)
+    1026                    .dwattr $C$DW$T$117, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1027                    .dwattr $C$DW$T$117, DW_AT_decl_line(0x72)
+    1028                    .dwattr $C$DW$T$117, DW_AT_decl_column(0x1a)
+    1029            
+    1030            $C$DW$T$118     .dwtag  DW_TAG_typedef
+    1031                    .dwattr $C$DW$T$118, DW_AT_name("uint_least32_t")
+    1032                    .dwattr $C$DW$T$118, DW_AT_type(*$C$DW$T$116)
+    1033                    .dwattr $C$DW$T$118, DW_AT_language(DW_LANG_C)
+    1034                    .dwattr $C$DW$T$118, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1035                    .dwattr $C$DW$T$118, DW_AT_decl_line(0x31)
+    1036                    .dwattr $C$DW$T$118, DW_AT_decl_column(0x1a)
+    1037            
+    1038            $C$DW$T$119     .dwtag  DW_TAG_typedef
+    1039                    .dwattr $C$DW$T$119, DW_AT_name("__uintfptr_t")
+    1040                    .dwattr $C$DW$T$119, DW_AT_type(*$C$DW$T$106)
+    1041                    .dwattr $C$DW$T$119, DW_AT_language(DW_LANG_C)
+    1042                    .dwattr $C$DW$T$119, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   20
+
+    1043                    .dwattr $C$DW$T$119, DW_AT_decl_line(0x68)
+    1044                    .dwattr $C$DW$T$119, DW_AT_decl_column(0x14)
+    1045            
+    1046            $C$DW$T$120     .dwtag  DW_TAG_typedef
+    1047                    .dwattr $C$DW$T$120, DW_AT_name("__uintptr_t")
+    1048                    .dwattr $C$DW$T$120, DW_AT_type(*$C$DW$T$106)
+    1049                    .dwattr $C$DW$T$120, DW_AT_language(DW_LANG_C)
+    1050                    .dwattr $C$DW$T$120, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1051                    .dwattr $C$DW$T$120, DW_AT_decl_line(0x6b)
+    1052                    .dwattr $C$DW$T$120, DW_AT_decl_column(0x14)
+    1053            
+    1054            $C$DW$T$121     .dwtag  DW_TAG_typedef
+    1055                    .dwattr $C$DW$T$121, DW_AT_name("uintptr_t")
+    1056                    .dwattr $C$DW$T$121, DW_AT_type(*$C$DW$T$120)
+    1057                    .dwattr $C$DW$T$121, DW_AT_language(DW_LANG_C)
+    1058                    .dwattr $C$DW$T$121, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1059                    .dwattr $C$DW$T$121, DW_AT_decl_line(0x54)
+    1060                    .dwattr $C$DW$T$121, DW_AT_decl_column(0x16)
+    1061            
+    1062            $C$DW$T$122     .dwtag  DW_TAG_typedef
+    1063                    .dwattr $C$DW$T$122, DW_AT_name("__vm_offset_t")
+    1064                    .dwattr $C$DW$T$122, DW_AT_type(*$C$DW$T$106)
+    1065                    .dwattr $C$DW$T$122, DW_AT_language(DW_LANG_C)
+    1066                    .dwattr $C$DW$T$122, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1067                    .dwattr $C$DW$T$122, DW_AT_decl_line(0x79)
+    1068                    .dwattr $C$DW$T$122, DW_AT_decl_column(0x14)
+    1069            
+    1070            $C$DW$T$123     .dwtag  DW_TAG_typedef
+    1071                    .dwattr $C$DW$T$123, DW_AT_name("__vm_paddr_t")
+    1072                    .dwattr $C$DW$T$123, DW_AT_type(*$C$DW$T$106)
+    1073                    .dwattr $C$DW$T$123, DW_AT_language(DW_LANG_C)
+    1074                    .dwattr $C$DW$T$123, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1075                    .dwattr $C$DW$T$123, DW_AT_decl_line(0x7a)
+    1076                    .dwattr $C$DW$T$123, DW_AT_decl_column(0x14)
+    1077            
+    1078            $C$DW$T$124     .dwtag  DW_TAG_typedef
+    1079                    .dwattr $C$DW$T$124, DW_AT_name("__vm_size_t")
+    1080                    .dwattr $C$DW$T$124, DW_AT_type(*$C$DW$T$106)
+    1081                    .dwattr $C$DW$T$124, DW_AT_language(DW_LANG_C)
+    1082                    .dwattr $C$DW$T$124, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1083                    .dwattr $C$DW$T$124, DW_AT_decl_line(0x7b)
+    1084                    .dwattr $C$DW$T$124, DW_AT_decl_column(0x14)
+    1085            
+    1086            $C$DW$T$125     .dwtag  DW_TAG_typedef
+    1087                    .dwattr $C$DW$T$125, DW_AT_name("uint32_t")
+    1088                    .dwattr $C$DW$T$125, DW_AT_type(*$C$DW$T$106)
+    1089                    .dwattr $C$DW$T$125, DW_AT_language(DW_LANG_C)
+    1090                    .dwattr $C$DW$T$125, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1091                    .dwattr $C$DW$T$125, DW_AT_decl_line(0x46)
+    1092                    .dwattr $C$DW$T$125, DW_AT_decl_column(0x15)
+    1093            
+    1094            $C$DW$T$14      .dwtag  DW_TAG_base_type
+    1095                    .dwattr $C$DW$T$14, DW_AT_encoding(DW_ATE_signed)
+    1096                    .dwattr $C$DW$T$14, DW_AT_name("long long")
+    1097                    .dwattr $C$DW$T$14, DW_AT_byte_size(0x08)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   21
+
+    1098            
+    1099            $C$DW$T$126     .dwtag  DW_TAG_typedef
+    1100                    .dwattr $C$DW$T$126, DW_AT_name("__int64_t")
+    1101                    .dwattr $C$DW$T$126, DW_AT_type(*$C$DW$T$14)
+    1102                    .dwattr $C$DW$T$126, DW_AT_language(DW_LANG_C)
+    1103                    .dwattr $C$DW$T$126, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1104                    .dwattr $C$DW$T$126, DW_AT_decl_line(0x40)
+    1105                    .dwattr $C$DW$T$126, DW_AT_decl_column(0x14)
+    1106            
+    1107            $C$DW$T$127     .dwtag  DW_TAG_typedef
+    1108                    .dwattr $C$DW$T$127, DW_AT_name("__blkcnt_t")
+    1109                    .dwattr $C$DW$T$127, DW_AT_type(*$C$DW$T$126)
+    1110                    .dwattr $C$DW$T$127, DW_AT_language(DW_LANG_C)
+    1111                    .dwattr $C$DW$T$127, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1112                    .dwattr $C$DW$T$127, DW_AT_decl_line(0x30)
+    1113                    .dwattr $C$DW$T$127, DW_AT_decl_column(0x13)
+    1114            
+    1115            $C$DW$T$128     .dwtag  DW_TAG_typedef
+    1116                    .dwattr $C$DW$T$128, DW_AT_name("__id_t")
+    1117                    .dwattr $C$DW$T$128, DW_AT_type(*$C$DW$T$126)
+    1118                    .dwattr $C$DW$T$128, DW_AT_language(DW_LANG_C)
+    1119                    .dwattr $C$DW$T$128, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1120                    .dwattr $C$DW$T$128, DW_AT_decl_line(0x36)
+    1121                    .dwattr $C$DW$T$128, DW_AT_decl_column(0x13)
+    1122            
+    1123            $C$DW$T$129     .dwtag  DW_TAG_typedef
+    1124                    .dwattr $C$DW$T$129, DW_AT_name("__int_fast64_t")
+    1125                    .dwattr $C$DW$T$129, DW_AT_type(*$C$DW$T$126)
+    1126                    .dwattr $C$DW$T$129, DW_AT_language(DW_LANG_C)
+    1127                    .dwattr $C$DW$T$129, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1128                    .dwattr $C$DW$T$129, DW_AT_decl_line(0x59)
+    1129                    .dwattr $C$DW$T$129, DW_AT_decl_column(0x13)
+    1130            
+    1131            $C$DW$T$130     .dwtag  DW_TAG_typedef
+    1132                    .dwattr $C$DW$T$130, DW_AT_name("int_fast64_t")
+    1133                    .dwattr $C$DW$T$130, DW_AT_type(*$C$DW$T$129)
+    1134                    .dwattr $C$DW$T$130, DW_AT_language(DW_LANG_C)
+    1135                    .dwattr $C$DW$T$130, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1136                    .dwattr $C$DW$T$130, DW_AT_decl_line(0x37)
+    1137                    .dwattr $C$DW$T$130, DW_AT_decl_column(0x19)
+    1138            
+    1139            $C$DW$T$131     .dwtag  DW_TAG_typedef
+    1140                    .dwattr $C$DW$T$131, DW_AT_name("__int_least64_t")
+    1141                    .dwattr $C$DW$T$131, DW_AT_type(*$C$DW$T$126)
+    1142                    .dwattr $C$DW$T$131, DW_AT_language(DW_LANG_C)
+    1143                    .dwattr $C$DW$T$131, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1144                    .dwattr $C$DW$T$131, DW_AT_decl_line(0x5d)
+    1145                    .dwattr $C$DW$T$131, DW_AT_decl_column(0x13)
+    1146            
+    1147            $C$DW$T$132     .dwtag  DW_TAG_typedef
+    1148                    .dwattr $C$DW$T$132, DW_AT_name("int_least64_t")
+    1149                    .dwattr $C$DW$T$132, DW_AT_type(*$C$DW$T$131)
+    1150                    .dwattr $C$DW$T$132, DW_AT_language(DW_LANG_C)
+    1151                    .dwattr $C$DW$T$132, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1152                    .dwattr $C$DW$T$132, DW_AT_decl_line(0x2d)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   22
+
+    1153                    .dwattr $C$DW$T$132, DW_AT_decl_column(0x1a)
+    1154            
+    1155            $C$DW$T$133     .dwtag  DW_TAG_typedef
+    1156                    .dwattr $C$DW$T$133, DW_AT_name("__intmax_t")
+    1157                    .dwattr $C$DW$T$133, DW_AT_type(*$C$DW$T$126)
+    1158                    .dwattr $C$DW$T$133, DW_AT_language(DW_LANG_C)
+    1159                    .dwattr $C$DW$T$133, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1160                    .dwattr $C$DW$T$133, DW_AT_decl_line(0x4f)
+    1161                    .dwattr $C$DW$T$133, DW_AT_decl_column(0x13)
+    1162            
+    1163            $C$DW$T$134     .dwtag  DW_TAG_typedef
+    1164                    .dwattr $C$DW$T$134, DW_AT_name("intmax_t")
+    1165                    .dwattr $C$DW$T$134, DW_AT_type(*$C$DW$T$133)
+    1166                    .dwattr $C$DW$T$134, DW_AT_language(DW_LANG_C)
+    1167                    .dwattr $C$DW$T$134, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1168                    .dwattr $C$DW$T$134, DW_AT_decl_line(0x58)
+    1169                    .dwattr $C$DW$T$134, DW_AT_decl_column(0x15)
+    1170            
+    1171            $C$DW$T$135     .dwtag  DW_TAG_typedef
+    1172                    .dwattr $C$DW$T$135, DW_AT_name("__off64_t")
+    1173                    .dwattr $C$DW$T$135, DW_AT_type(*$C$DW$T$126)
+    1174                    .dwattr $C$DW$T$135, DW_AT_language(DW_LANG_C)
+    1175                    .dwattr $C$DW$T$135, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1176                    .dwattr $C$DW$T$135, DW_AT_decl_line(0x3f)
+    1177                    .dwattr $C$DW$T$135, DW_AT_decl_column(0x13)
+    1178            
+    1179            $C$DW$T$136     .dwtag  DW_TAG_typedef
+    1180                    .dwattr $C$DW$T$136, DW_AT_name("__rlim_t")
+    1181                    .dwattr $C$DW$T$136, DW_AT_type(*$C$DW$T$126)
+    1182                    .dwattr $C$DW$T$136, DW_AT_language(DW_LANG_C)
+    1183                    .dwattr $C$DW$T$136, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1184                    .dwattr $C$DW$T$136, DW_AT_decl_line(0x41)
+    1185                    .dwattr $C$DW$T$136, DW_AT_decl_column(0x13)
+    1186            
+    1187            $C$DW$T$137     .dwtag  DW_TAG_typedef
+    1188                    .dwattr $C$DW$T$137, DW_AT_name("int64_t")
+    1189                    .dwattr $C$DW$T$137, DW_AT_type(*$C$DW$T$126)
+    1190                    .dwattr $C$DW$T$137, DW_AT_language(DW_LANG_C)
+    1191                    .dwattr $C$DW$T$137, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1192                    .dwattr $C$DW$T$137, DW_AT_decl_line(0x35)
+    1193                    .dwattr $C$DW$T$137, DW_AT_decl_column(0x14)
+    1194            
+    1195            $C$DW$T$15      .dwtag  DW_TAG_base_type
+    1196                    .dwattr $C$DW$T$15, DW_AT_encoding(DW_ATE_unsigned)
+    1197                    .dwattr $C$DW$T$15, DW_AT_name("unsigned long long")
+    1198                    .dwattr $C$DW$T$15, DW_AT_byte_size(0x08)
+    1199            
+    1200            $C$DW$T$138     .dwtag  DW_TAG_typedef
+    1201                    .dwattr $C$DW$T$138, DW_AT_name("__uint64_t")
+    1202                    .dwattr $C$DW$T$138, DW_AT_type(*$C$DW$T$15)
+    1203                    .dwattr $C$DW$T$138, DW_AT_language(DW_LANG_C)
+    1204                    .dwattr $C$DW$T$138, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1205                    .dwattr $C$DW$T$138, DW_AT_decl_line(0x45)
+    1206                    .dwattr $C$DW$T$138, DW_AT_decl_column(0x1c)
+    1207            
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   23
+
+    1208            $C$DW$T$139     .dwtag  DW_TAG_typedef
+    1209                    .dwattr $C$DW$T$139, DW_AT_name("__dev_t")
+    1210                    .dwattr $C$DW$T$139, DW_AT_type(*$C$DW$T$138)
+    1211                    .dwattr $C$DW$T$139, DW_AT_language(DW_LANG_C)
+    1212                    .dwattr $C$DW$T$139, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1213                    .dwattr $C$DW$T$139, DW_AT_decl_line(0x7f)
+    1214                    .dwattr $C$DW$T$139, DW_AT_decl_column(0x14)
+    1215            
+    1216            $C$DW$T$140     .dwtag  DW_TAG_typedef
+    1217                    .dwattr $C$DW$T$140, DW_AT_name("__fsblkcnt_t")
+    1218                    .dwattr $C$DW$T$140, DW_AT_type(*$C$DW$T$138)
+    1219                    .dwattr $C$DW$T$140, DW_AT_language(DW_LANG_C)
+    1220                    .dwattr $C$DW$T$140, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1221                    .dwattr $C$DW$T$140, DW_AT_decl_line(0x33)
+    1222                    .dwattr $C$DW$T$140, DW_AT_decl_column(0x14)
+    1223            
+    1224            $C$DW$T$141     .dwtag  DW_TAG_typedef
+    1225                    .dwattr $C$DW$T$141, DW_AT_name("__fsfilcnt_t")
+    1226                    .dwattr $C$DW$T$141, DW_AT_type(*$C$DW$T$138)
+    1227                    .dwattr $C$DW$T$141, DW_AT_language(DW_LANG_C)
+    1228                    .dwattr $C$DW$T$141, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1229                    .dwattr $C$DW$T$141, DW_AT_decl_line(0x34)
+    1230                    .dwattr $C$DW$T$141, DW_AT_decl_column(0x14)
+    1231            
+    1232            $C$DW$T$142     .dwtag  DW_TAG_typedef
+    1233                    .dwattr $C$DW$T$142, DW_AT_name("__ino_t")
+    1234                    .dwattr $C$DW$T$142, DW_AT_type(*$C$DW$T$138)
+    1235                    .dwattr $C$DW$T$142, DW_AT_language(DW_LANG_C)
+    1236                    .dwattr $C$DW$T$142, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1237                    .dwattr $C$DW$T$142, DW_AT_decl_line(0x37)
+    1238                    .dwattr $C$DW$T$142, DW_AT_decl_column(0x14)
+    1239            
+    1240            $C$DW$T$143     .dwtag  DW_TAG_typedef
+    1241                    .dwattr $C$DW$T$143, DW_AT_name("__nlink_t")
+    1242                    .dwattr $C$DW$T$143, DW_AT_type(*$C$DW$T$138)
+    1243                    .dwattr $C$DW$T$143, DW_AT_language(DW_LANG_C)
+    1244                    .dwattr $C$DW$T$143, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1245                    .dwattr $C$DW$T$143, DW_AT_decl_line(0x3d)
+    1246                    .dwattr $C$DW$T$143, DW_AT_decl_column(0x14)
+    1247            
+    1248            $C$DW$T$144     .dwtag  DW_TAG_typedef
+    1249                    .dwattr $C$DW$T$144, DW_AT_name("__uint_fast64_t")
+    1250                    .dwattr $C$DW$T$144, DW_AT_type(*$C$DW$T$138)
+    1251                    .dwattr $C$DW$T$144, DW_AT_language(DW_LANG_C)
+    1252                    .dwattr $C$DW$T$144, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1253                    .dwattr $C$DW$T$144, DW_AT_decl_line(0x73)
+    1254                    .dwattr $C$DW$T$144, DW_AT_decl_column(0x14)
+    1255            
+    1256            $C$DW$T$145     .dwtag  DW_TAG_typedef
+    1257                    .dwattr $C$DW$T$145, DW_AT_name("uint_fast64_t")
+    1258                    .dwattr $C$DW$T$145, DW_AT_type(*$C$DW$T$144)
+    1259                    .dwattr $C$DW$T$145, DW_AT_language(DW_LANG_C)
+    1260                    .dwattr $C$DW$T$145, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1261                    .dwattr $C$DW$T$145, DW_AT_decl_line(0x3c)
+    1262                    .dwattr $C$DW$T$145, DW_AT_decl_column(0x1a)
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   24
+
+    1263            
+    1264            $C$DW$T$146     .dwtag  DW_TAG_typedef
+    1265                    .dwattr $C$DW$T$146, DW_AT_name("__uint_least64_t")
+    1266                    .dwattr $C$DW$T$146, DW_AT_type(*$C$DW$T$138)
+    1267                    .dwattr $C$DW$T$146, DW_AT_language(DW_LANG_C)
+    1268                    .dwattr $C$DW$T$146, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1269                    .dwattr $C$DW$T$146, DW_AT_decl_line(0x77)
+    1270                    .dwattr $C$DW$T$146, DW_AT_decl_column(0x14)
+    1271            
+    1272            $C$DW$T$147     .dwtag  DW_TAG_typedef
+    1273                    .dwattr $C$DW$T$147, DW_AT_name("uint_least64_t")
+    1274                    .dwattr $C$DW$T$147, DW_AT_type(*$C$DW$T$146)
+    1275                    .dwattr $C$DW$T$147, DW_AT_language(DW_LANG_C)
+    1276                    .dwattr $C$DW$T$147, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1277                    .dwattr $C$DW$T$147, DW_AT_decl_line(0x32)
+    1278                    .dwattr $C$DW$T$147, DW_AT_decl_column(0x1a)
+    1279            
+    1280            $C$DW$T$148     .dwtag  DW_TAG_typedef
+    1281                    .dwattr $C$DW$T$148, DW_AT_name("__uintmax_t")
+    1282                    .dwattr $C$DW$T$148, DW_AT_type(*$C$DW$T$138)
+    1283                    .dwattr $C$DW$T$148, DW_AT_language(DW_LANG_C)
+    1284                    .dwattr $C$DW$T$148, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1285                    .dwattr $C$DW$T$148, DW_AT_decl_line(0x69)
+    1286                    .dwattr $C$DW$T$148, DW_AT_decl_column(0x14)
+    1287            
+    1288            $C$DW$T$149     .dwtag  DW_TAG_typedef
+    1289                    .dwattr $C$DW$T$149, DW_AT_name("__rman_res_t")
+    1290                    .dwattr $C$DW$T$149, DW_AT_type(*$C$DW$T$148)
+    1291                    .dwattr $C$DW$T$149, DW_AT_language(DW_LANG_C)
+    1292                    .dwattr $C$DW$T$149, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1293                    .dwattr $C$DW$T$149, DW_AT_decl_line(0x9a)
+    1294                    .dwattr $C$DW$T$149, DW_AT_decl_column(0x19)
+    1295            
+    1296            $C$DW$T$150     .dwtag  DW_TAG_typedef
+    1297                    .dwattr $C$DW$T$150, DW_AT_name("uintmax_t")
+    1298                    .dwattr $C$DW$T$150, DW_AT_type(*$C$DW$T$148)
+    1299                    .dwattr $C$DW$T$150, DW_AT_language(DW_LANG_C)
+    1300                    .dwattr $C$DW$T$150, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1301                    .dwattr $C$DW$T$150, DW_AT_decl_line(0x5c)
+    1302                    .dwattr $C$DW$T$150, DW_AT_decl_column(0x16)
+    1303            
+    1304            $C$DW$T$151     .dwtag  DW_TAG_typedef
+    1305                    .dwattr $C$DW$T$151, DW_AT_name("uint64_t")
+    1306                    .dwattr $C$DW$T$151, DW_AT_type(*$C$DW$T$138)
+    1307                    .dwattr $C$DW$T$151, DW_AT_language(DW_LANG_C)
+    1308                    .dwattr $C$DW$T$151, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1309                    .dwattr $C$DW$T$151, DW_AT_decl_line(0x4b)
+    1310                    .dwattr $C$DW$T$151, DW_AT_decl_column(0x15)
+    1311            
+    1312            $C$DW$T$16      .dwtag  DW_TAG_base_type
+    1313                    .dwattr $C$DW$T$16, DW_AT_encoding(DW_ATE_float)
+    1314                    .dwattr $C$DW$T$16, DW_AT_name("float")
+    1315                    .dwattr $C$DW$T$16, DW_AT_byte_size(0x04)
+    1316            
+    1317            $C$DW$T$152     .dwtag  DW_TAG_typedef
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   25
+
+    1318                    .dwattr $C$DW$T$152, DW_AT_name("__float_t")
+    1319                    .dwattr $C$DW$T$152, DW_AT_type(*$C$DW$T$16)
+    1320                    .dwattr $C$DW$T$152, DW_AT_language(DW_LANG_C)
+    1321                    .dwattr $C$DW$T$152, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1322                    .dwattr $C$DW$T$152, DW_AT_decl_line(0x4d)
+    1323                    .dwattr $C$DW$T$152, DW_AT_decl_column(0x10)
+    1324            
+    1325            $C$DW$T$17      .dwtag  DW_TAG_base_type
+    1326                    .dwattr $C$DW$T$17, DW_AT_encoding(DW_ATE_float)
+    1327                    .dwattr $C$DW$T$17, DW_AT_name("double")
+    1328                    .dwattr $C$DW$T$17, DW_AT_byte_size(0x08)
+    1329            
+    1330            $C$DW$T$153     .dwtag  DW_TAG_typedef
+    1331                    .dwattr $C$DW$T$153, DW_AT_name("__double_t")
+    1332                    .dwattr $C$DW$T$153, DW_AT_type(*$C$DW$T$17)
+    1333                    .dwattr $C$DW$T$153, DW_AT_language(DW_LANG_C)
+    1334                    .dwattr $C$DW$T$153, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1335                    .dwattr $C$DW$T$153, DW_AT_decl_line(0x4c)
+    1336                    .dwattr $C$DW$T$153, DW_AT_decl_column(0x11)
+    1337            
+    1338            $C$DW$T$18      .dwtag  DW_TAG_base_type
+    1339                    .dwattr $C$DW$T$18, DW_AT_encoding(DW_ATE_float)
+    1340                    .dwattr $C$DW$T$18, DW_AT_name("long double")
+    1341                    .dwattr $C$DW$T$18, DW_AT_byte_size(0x08)
+    1342            
+    1343            $C$DW$T$155     .dwtag  DW_TAG_pointer_type
+    1344                    .dwattr $C$DW$T$155, DW_AT_type(*$C$DW$T$6)
+    1345                    .dwattr $C$DW$T$155, DW_AT_address_class(0x14)
+    1346            
+    1347            $C$DW$T$156     .dwtag  DW_TAG_typedef
+    1348                    .dwattr $C$DW$T$156, DW_AT_name("__va_list")
+    1349                    .dwattr $C$DW$T$156, DW_AT_type(*$C$DW$T$155)
+    1350                    .dwattr $C$DW$T$156, DW_AT_language(DW_LANG_C)
+    1351                    .dwattr $C$DW$T$156, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1352                    .dwattr $C$DW$T$156, DW_AT_decl_line(0x92)
+    1353                    .dwattr $C$DW$T$156, DW_AT_decl_column(0x0f)
+    1354            
+    1355            
+    1356            $C$DW$T$19      .dwtag  DW_TAG_structure_type
+    1357                    .dwattr $C$DW$T$19, DW_AT_name("__mq")
+    1358                    .dwattr $C$DW$T$19, DW_AT_declaration
+    1359                    .dwattr $C$DW$T$19, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+    1360                    .dwattr $C$DW$T$19, DW_AT_decl_line(0x4c)
+    1361                    .dwattr $C$DW$T$19, DW_AT_decl_column(0x10)
+    1362                    .dwendtag $C$DW$T$19
+    1363            
+    1364            $C$DW$T$157     .dwtag  DW_TAG_pointer_type
+    1365                    .dwattr $C$DW$T$157, DW_AT_type(*$C$DW$T$19)
+    1366                    .dwattr $C$DW$T$157, DW_AT_address_class(0x14)
+    1367            
+    1368            $C$DW$T$158     .dwtag  DW_TAG_typedef
+    1369                    .dwattr $C$DW$T$158, DW_AT_name("__mqd_t")
+    1370                    .dwattr $C$DW$T$158, DW_AT_type(*$C$DW$T$157)
+    1371                    .dwattr $C$DW$T$158, DW_AT_language(DW_LANG_C)
+    1372                    .dwattr $C$DW$T$158, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   26
+
+    1373                    .dwattr $C$DW$T$158, DW_AT_decl_line(0x4c)
+    1374                    .dwattr $C$DW$T$158, DW_AT_decl_column(0x16)
+    1375            
+    1376            
+    1377            $C$DW$T$20      .dwtag  DW_TAG_structure_type
+    1378                    .dwattr $C$DW$T$20, DW_AT_name("__timer")
+    1379                    .dwattr $C$DW$T$20, DW_AT_declaration
+    1380                    .dwattr $C$DW$T$20, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+    1381                    .dwattr $C$DW$T$20, DW_AT_decl_line(0x4b)
+    1382                    .dwattr $C$DW$T$20, DW_AT_decl_column(0x10)
+    1383                    .dwendtag $C$DW$T$20
+    1384            
+    1385            $C$DW$T$159     .dwtag  DW_TAG_pointer_type
+    1386                    .dwattr $C$DW$T$159, DW_AT_type(*$C$DW$T$20)
+    1387                    .dwattr $C$DW$T$159, DW_AT_address_class(0x14)
+    1388            
+    1389            $C$DW$T$160     .dwtag  DW_TAG_typedef
+    1390                    .dwattr $C$DW$T$160, DW_AT_name("__timer_t")
+    1391                    .dwattr $C$DW$T$160, DW_AT_type(*$C$DW$T$159)
+    1392                    .dwattr $C$DW$T$160, DW_AT_language(DW_LANG_C)
+    1393                    .dwattr $C$DW$T$160, DW_AT_decl_file("C:/ti/ccs1250/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LT
+    1394                    .dwattr $C$DW$T$160, DW_AT_decl_line(0x4b)
+    1395                    .dwattr $C$DW$T$160, DW_AT_decl_column(0x19)
+    1396            
+    1397                    .dwattr $C$DW$CU, DW_AT_language(DW_LANG_C)
+    1398            
+    1399            ;***************************************************************
+    1400            ;* DWARF CIE ENTRIES                                           *
+    1401            ;***************************************************************
+    1402            
+    1403            $C$DW$CIE       .dwcie 16
+    1404                    .dwcfi  cfa_register, 1
+    1405                    .dwcfi  cfa_offset, 0
+    1406                    .dwcfi  same_value, 0
+    1407                    .dwcfi  same_value, 1
+    1408                    .dwcfi  same_value, 3
+    1409                    .dwcfi  same_value, 4
+    1410                    .dwcfi  same_value, 5
+    1411                    .dwcfi  same_value, 6
+    1412                    .dwcfi  same_value, 7
+    1413                    .dwcfi  same_value, 8
+    1414                    .dwcfi  same_value, 9
+    1415                    .dwcfi  same_value, 10
+    1416                    .dwendentry
+    1417            
+    1418            ;***************************************************************
+    1419            ;* DWARF REGISTER MAP                                          *
+    1420            ;***************************************************************
+    1421            
+    1422            $C$DW$18        .dwtag  DW_TAG_TI_assign_register
+    1423                    .dwattr $C$DW$18, DW_AT_name("PC")
+    1424                    .dwattr $C$DW$18, DW_AT_location[DW_OP_reg0]
+    1425            
+    1426            $C$DW$19        .dwtag  DW_TAG_TI_assign_register
+    1427                    .dwattr $C$DW$19, DW_AT_name("SP")
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   27
+
+    1428                    .dwattr $C$DW$19, DW_AT_location[DW_OP_reg1]
+    1429            
+    1430            $C$DW$20        .dwtag  DW_TAG_TI_assign_register
+    1431                    .dwattr $C$DW$20, DW_AT_name("SR")
+    1432                    .dwattr $C$DW$20, DW_AT_location[DW_OP_reg2]
+    1433            
+    1434            $C$DW$21        .dwtag  DW_TAG_TI_assign_register
+    1435                    .dwattr $C$DW$21, DW_AT_name("CG")
+    1436                    .dwattr $C$DW$21, DW_AT_location[DW_OP_reg3]
+    1437            
+    1438            $C$DW$22        .dwtag  DW_TAG_TI_assign_register
+    1439                    .dwattr $C$DW$22, DW_AT_name("r4")
+    1440                    .dwattr $C$DW$22, DW_AT_location[DW_OP_reg4]
+    1441            
+    1442            $C$DW$23        .dwtag  DW_TAG_TI_assign_register
+    1443                    .dwattr $C$DW$23, DW_AT_name("r5")
+    1444                    .dwattr $C$DW$23, DW_AT_location[DW_OP_reg5]
+    1445            
+    1446            $C$DW$24        .dwtag  DW_TAG_TI_assign_register
+    1447                    .dwattr $C$DW$24, DW_AT_name("r6")
+    1448                    .dwattr $C$DW$24, DW_AT_location[DW_OP_reg6]
+    1449            
+    1450            $C$DW$25        .dwtag  DW_TAG_TI_assign_register
+    1451                    .dwattr $C$DW$25, DW_AT_name("r7")
+    1452                    .dwattr $C$DW$25, DW_AT_location[DW_OP_reg7]
+    1453            
+    1454            $C$DW$26        .dwtag  DW_TAG_TI_assign_register
+    1455                    .dwattr $C$DW$26, DW_AT_name("r8")
+    1456                    .dwattr $C$DW$26, DW_AT_location[DW_OP_reg8]
+    1457            
+    1458            $C$DW$27        .dwtag  DW_TAG_TI_assign_register
+    1459                    .dwattr $C$DW$27, DW_AT_name("r9")
+    1460                    .dwattr $C$DW$27, DW_AT_location[DW_OP_reg9]
+    1461            
+    1462            $C$DW$28        .dwtag  DW_TAG_TI_assign_register
+    1463                    .dwattr $C$DW$28, DW_AT_name("r10")
+    1464                    .dwattr $C$DW$28, DW_AT_location[DW_OP_reg10]
+    1465            
+    1466            $C$DW$29        .dwtag  DW_TAG_TI_assign_register
+    1467                    .dwattr $C$DW$29, DW_AT_name("r11")
+    1468                    .dwattr $C$DW$29, DW_AT_location[DW_OP_reg11]
+    1469            
+    1470            $C$DW$30        .dwtag  DW_TAG_TI_assign_register
+    1471                    .dwattr $C$DW$30, DW_AT_name("r12")
+    1472                    .dwattr $C$DW$30, DW_AT_location[DW_OP_reg12]
+    1473            
+    1474            $C$DW$31        .dwtag  DW_TAG_TI_assign_register
+    1475                    .dwattr $C$DW$31, DW_AT_name("r13")
+    1476                    .dwattr $C$DW$31, DW_AT_location[DW_OP_reg13]
+    1477            
+    1478            $C$DW$32        .dwtag  DW_TAG_TI_assign_register
+    1479                    .dwattr $C$DW$32, DW_AT_name("r14")
+    1480                    .dwattr $C$DW$32, DW_AT_location[DW_OP_reg14]
+    1481            
+    1482            $C$DW$33        .dwtag  DW_TAG_TI_assign_register
+MSP430 Assembler PC v21.6.1 Mon Feb 24 13:22:58 2025
+
+Copyright (c) 2003-2018 Texas Instruments Incorporated
+wdt.asm                                                              PAGE   28
+
+    1483                    .dwattr $C$DW$33, DW_AT_name("r15")
+    1484                    .dwattr $C$DW$33, DW_AT_location[DW_OP_reg15]
+    1485            
+    1486            $C$DW$34        .dwtag  DW_TAG_TI_assign_register
+    1487                    .dwattr $C$DW$34, DW_AT_name("CIE_RETA")
+    1488                    .dwattr $C$DW$34, DW_AT_location[DW_OP_reg16]
+    1489            
+    1490                    .dwendtag $C$DW$CU
+    1491            
+
+No Assembly Errors, No Assembly Warnings
