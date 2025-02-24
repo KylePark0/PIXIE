@@ -5,7 +5,7 @@
  *  Created on: May 5, 2023
  *      Author: K. Park
  *
- *      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+ *      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
  *      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
  *      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
  *      were made to the original content. No warranties are provided under this license.
@@ -29,6 +29,6 @@
 //===========================================================================================================================================
 // Subroutines as global C-functions
 //===========================================================================================================================================
-extern void         DSP_AnalysisLoop(int16_t in); //returns all done via global variables originating in main.c
+extern void         DSP_AnalysisLoop(void);
 
 #endif /* INC_FXP_H_ */
