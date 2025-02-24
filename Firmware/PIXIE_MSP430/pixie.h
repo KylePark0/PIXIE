@@ -5,7 +5,7 @@
  *  Created on: Apr 28, 2023
  *      Author: K. Park
  *
- *      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+ *      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
  *      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
  *      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
  *      were made to the original content. No warranties are provided under this license.
@@ -107,20 +107,27 @@ const char*                PIXIE_TypeStrings(uint16_t i);
 //  status to the terminal every time it powers on or resets. This is useful for debugging, but can be
 //  a waste of space when connected to RS-232 data-logging devices.
 
-#define __USE_VERBOSE_STARTUP
+//#define __USE_VERBOSE_STARTUP
+
+// __USE_RAW_XY -------------------------------------------------------------------------------------------
+//  If this symbol is defined, the PIXIE output is formatted in terms of the lock-in amplifier's
+//  intermediate X (in-phase) and Y (in-quadrature) signals instead of R (measured amplitude). This is
+//  useful when post-processing is available and both amplitude and phase measurements are desired.
+
+//#define __USE_RAW_XY
 
 // __IMMEDIATE_ENDLESS ------------------------------------------------------------------------------------
 //  If this symbol is defined, the PIXIE will begin measuring immediately on startup and will do so using
 //  the ENDLESS_RUN duration. It can only be stopped by receiving a STOP command via UART/RS-232.
 
-//#define __IMMEDIATE_ENDLESS
+#define __IMMEDIATE_ENDLESS
 
 // __IMMEDIATE_ENDLESS_MODE -------------------------------------------------------------------------------
 //  If the __IMMEDIATE_ENDLESS is defined, this symbol MUST also be defined. This constant tells the PIXIE
 //  which channel to RUN with; set to 1...4 to run from channel 1...4, or set to 0 to run the defined
 //  channel sequence.
 
-//#define __IMMEDIATE_ENDLESS_MODE    (0)
+#define __IMMEDIATE_ENDLESS_MODE    (2)
 
 // Configuration Error Checking ---------------------------------------------------------------------------
 #ifdef __IMMEDIATE_ENDLESS
@@ -151,12 +158,14 @@ const char*                PIXIE_TypeStrings(uint16_t i);
 #define CHANNEL_EXCITATION_BLUE         (3)
 #define CHANNEL_EXCITATION_UV           (4)
 #define CHANNEL_EXCITATION_IR           (5)
+#define CHANNEL_EXCITATION_RED          (6)
 
 #define CHANNEL_TYPEID_PHYCOCYANIN      (CHANNEL_EXCITATION_AMBER)
 #define CHANNEL_TYPEID_RHODAMINE        (CHANNEL_EXCITATION_GREEN)
 #define CHANNEL_TYPEID_CHLOROPHYLL      (CHANNEL_EXCITATION_BLUE)
 #define CHANNEL_TYPEID_FDOM             (CHANNEL_EXCITATION_UV)
 #define CHANNEL_TYPEID_TURBID           (CHANNEL_EXCITATION_IR)
+#define CHANNEL_TYPEID_PH               (CHANNEL_EXCITATION_RED)
 
 // Default Channel Specifications -------------------------------------------------------------------------
 //  These configurations are used set the default name, gain, pregain, and attenuation level for each of
@@ -171,10 +180,10 @@ const char*                PIXIE_TypeStrings(uint16_t i);
 //  Valid Attenuations  : 0, 1, 2, 3
 
 //   Channel 1 Default Specs
-#define CHANNEL_1_TYPEID                (CHANNEL_TYPEID_PHYCOCYANIN)
-#define CHANNEL_1_PREGAIN               (100)
-#define CHANNEL_1_GAIN                  (16)
-#define CHANNEL_1_ATTENUATION           (0)
+#define CHANNEL_1_TYPEID                (CHANNEL_TYPEID_PH)
+#define CHANNEL_1_PREGAIN               (50)
+#define CHANNEL_1_GAIN                  (8)
+#define CHANNEL_1_ATTENUATION           (1)
 
 //   Channel 2 Default Specs
 #define CHANNEL_2_TYPEID                (CHANNEL_TYPEID_RHODAMINE)

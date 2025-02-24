@@ -4,7 +4,7 @@
  *
  *      Authors: K. Park, V. Sieben, J. Smith
  *
- *      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+ *      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
  *      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
  *      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
  *      were made to the original content. No warranties are provided under this license.
@@ -1220,9 +1220,14 @@ void MAIN_ExecuteGATTEN(void)
 #pragma vector=DMA_VECTOR
 __interrupt void DMA_ISR (void)
 {
+#ifdef __USE_RAW_XY
+    volatile int16_t xint = 0;
+    volatile int16_t yint = 0;
+#else
     uint32_t        r2          = 0;
     uint32_t        rint        = 0;
     double          r           = 0.0;
+#endif
 
     CH_ChannelSpec* nextseq     = NULL;
 
@@ -1283,10 +1288,15 @@ __interrupt void DMA_ISR (void)
         //          Accumulate filtered samples into 32-bit storage to perform averaging.
         //      Compute the average once loop is complete, thereby decimating by 512. (8192 -> 16 Hz rate change).
 
-        DSP_AnalysisLoop(false);
+        DSP_AnalysisLoop();
 
         // Step 2: Lock-in Calcs.
         //  To avoid costly calls to atan2(), only r is calculated.
+#ifdef __USE_RAW_XY
+        //  In X-Y mode, the -1 is used to account for the inverting PGA amplifier.
+        xint = -1 * (int16_t)MAIN_XAcc;
+        yint = -1 * (int16_t)MAIN_YAcc;
+#else
         r2          = (uint32_t)(MAIN_XAcc * MAIN_XAcc) + (uint32_t)(MAIN_YAcc * MAIN_YAcc);
         r2        <<= 2;            //multiply by 4, unsigned so no need to worry about shift type.
         r           = sqrt(r2);     //one double-precision call at the end of the loop won't ruin us... right?
@@ -1307,6 +1317,9 @@ __interrupt void DMA_ISR (void)
             rint = (uint16_t)r;
         }
 
+        //todo add phase/atan2() code here for phase measurement!
+#endif
+
         // Step 3: Data Reporting and Setup for next cycle.
         //  If the channel still has excluded cycles to run through first, decrement and don't report.
         if(CH_RunExclusions > 0)
@@ -1316,6 +1329,32 @@ __interrupt void DMA_ISR (void)
         else
         {
             //  Otherwise, report the data with channel # followed by raw code measurement.
+#ifdef __USE_RAW_XY
+            if(CH_ActiveChannel->next)
+            {
+                //  Sequential Mode Formatting
+                if(MAIN_IndexNumber == 0)
+                {
+                    UART1_puts(sprintf(UART1_Output.buffer, "SEQI,%u,%u,%d\n", MAIN_SequenceNumber, CH_ActiveChannel->id, xint));
+                }
+                else
+                {
+                    UART1_puts(sprintf(UART1_Output.buffer, "SEQN,%u,%u,%d\n", MAIN_SequenceNumber, CH_ActiveChannel->id, xint));
+                }
+            }
+            else
+            {
+                //  Single Channel Mode Formatting
+                if(MAIN_IndexNumber == 0)
+                {
+                    UART1_puts(sprintf(UART1_Output.buffer, "DATI,%u,%d,%d\n", CH_ActiveChannel->id, xint, yint));
+                }
+                else
+                {
+                    UART1_puts(sprintf(UART1_Output.buffer, "DATA,%u,%d,%d\n", CH_ActiveChannel->id, xint, yint));
+                }
+            }
+#else
             if(CH_ActiveChannel->next)
             {
                 //  Sequential Mode Formatting
@@ -1340,6 +1379,7 @@ __interrupt void DMA_ISR (void)
                     UART1_puts(sprintf(UART1_Output.buffer, "DATA,%u,%d\n", CH_ActiveChannel->id, rint));
                 }
             }
+#endif
             //   Then, increment the index tracker.
             MAIN_IndexNumber = (MAIN_IndexNumber + 1) & (16 - 1);
 
