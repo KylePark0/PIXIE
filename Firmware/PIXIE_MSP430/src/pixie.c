@@ -5,7 +5,7 @@
  *  Created on: Jun 1, 2023
  *      Author: K. Park
  *
- *      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+ *      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
  *      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
  *      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
  *      were made to the original content. No warranties are provided under this license.
@@ -29,6 +29,7 @@ const char* Rhodamine_String                                    = "RhodamineWT";
 const char* Chlorophyll_String                                  = "Chlorophyll-a";
 const char* fDOM_String                                         = "fDOM";
 const char* Turbidity_String                                    = "Turbidity";
+const char* pH_String                                           = "pH Optode";
 
 // Any new or altered typeIDs or names must be added to this lookup function as well.
 const char* PIXIE_TypeStrings(uint16_t i)
@@ -43,6 +44,8 @@ const char* PIXIE_TypeStrings(uint16_t i)
         return Chlorophyll_String;
     case CHANNEL_TYPEID_FDOM:
         return fDOM_String;
+    case CHANNEL_TYPEID_PH:
+        return pH_String;
     case CHANNEL_TYPEID_TURBID:
     default:
         return Turbidity_String;

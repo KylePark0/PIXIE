@@ -5,7 +5,7 @@
 ;*  Created on: May 5, 2023
 ;*      Author: K. Park
 ;*
-;*      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+;*      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
 ;*      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
 ;*      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
 ;*      were made to the original content. No warranties are provided under this license.
@@ -34,8 +34,8 @@
 						.ref	MAIN_YFilterTap1
 						.ref	MAIN_YFilterTap2
 
-						.ref	MAIN_XOut								; todo these might not be necessary if one two registers can be
-						.ref	MAIN_YOut								; freed up.
+						.ref	MAIN_XOut
+						.ref	MAIN_YOut
 
 						.ref	MAIN_XAcc
 						.ref	MAIN_YAcc
@@ -49,7 +49,7 @@ DSP_FilterAlpha1_H:		.equ	0x09BE									; = 8 x 0.076120467488713 in Q3.28, sca
 
 DSP_FilterAlpha2_L:		.equ	0x26E9									; Coeff of Block 2 (Type 4) in LWDBPF.
 DSP_FilterAlpha2_H:		.equ	0x0031									; = 8 x 0.001500000000000 in Q3.28, scaled for fast Q3.28 product,
-																		; 0.001500000000000 = "1-Quality", todo insert actual formula.
+																		; 0.001500000000000 = "1-Quality",
 
 DSP_TransientCoeff1_L:	.equ	0xC068									; Coeff of transient compensation for Tap1.
 DSP_TransientCoeff1_H:	.equ	0xFB55									; = 8 x -0.0364455726481 in Q3.28, scaled for fast Q3.28 product
@@ -83,8 +83,6 @@ DSP_InputPointer:		.equ	R5										; These are never reassigned.
 DSP_i:					.equ	R4										;
 DSP_j:					.equ	R14										;
 
-DSP_FirstRun:			.equ	R12										; Input argument, only needed at the very start.
-
 DSP_FilterIn_L:			.equ	R6										;
 DSP_FilterIn_H:			.equ	R7										;
 DSP_FilterOut_L:		.equ	R6										;
@@ -97,7 +95,7 @@ DSP_Temp1_L:			.equ	R12										;
 DSP_Temp1_H:			.equ	R13										;
 
 DSP_XRefPointer:		.equ	R8										;
-DSP_YRefPointer:		.equ	R9										;
+DSP_YRefPointer:		.equ	R8										;
 
 DSP_XOut_L:				.equ	R10										;
 DSP_XOut_H:				.equ	R11										;
@@ -109,17 +107,12 @@ DSP_YFilt_L:			.equ	R12										;
 DSP_YFilt_H:			.equ	R13										;
 
 ; * Begin Subroutine * ; ===================================================================================================================
-						.global DSP_AnalysisLoop						; Global declaration in ASM to match extern declaration in C.
+						.global DSP_AnalysisLoop								; Global declaration in ASM to match extern declaration in C.
 DSP_AnalysisLoop:		.asmfunc
 
 						; * Preamble * =====================================================================================================
 						pushm.a #12,R15									; Calling convention: Save [R15:R4] onto stack before use.
-																		; todo: Only need to do [R10:R4], but I didn't trust this
-																		; step during an invalid memory write bug earlier on in dev.
-																		; Now that things are working, this could probably be reduced
-																		; to save a few cycles.
-
-																		; todo: should consider pushing MPY register onto the stack too.
+																		; R15 is reserved for stack.
 
 						mov.w	#512, DSP_i								; Set loop iterator to 512, breaks on decrement to 0.
 
@@ -128,61 +121,9 @@ DSP_AnalysisLoop:		.asmfunc
 
 						mova	#MAIN_ADCBuffer+0, DSP_InputPointer		; Cache the first address in the 512 word input array.
 
-						cmp.w	#0, DSP_FirstRun						; If argument isn't zero, then this is the first loop.
-						jeq		FilterLoopStart							; IF it is, jump past the transient suppression.
-
-;						; * Transient Suppression * ========================================================================================
-;						mov.w	#MPYM1, &MPY32CTL0						; Configure MPY for 16 bit signed multiplication.
-;						movx.w	@DSP_InputPointer, &MPYS				; Load 1st operand, current input sample.
-;						mov.w 	#0x2000, &OP2							; Load 2nd operand, 2^13 (left-shift MSB 13 places).
-;						mov.w	&RES0, DSP_FilterIn_L					;
-;						mov.w	&RES1, DSP_FilterIn_H					; First input sample now in Q3.28.
-;
-;						mov.w   #OP2_32+OP1_32+MPYM0+MPYFRAC, &MPY32CTL0; Configure MPY for 32 bit signed multiplication for subsequent steps.
-;
-;						; * BPF Transients *
-;						mov.w	DSP_FilterIn_L, &MPYS32L				;
-;						mov.w 	DSP_FilterIn_H, &MPYS32H				;
-;						mov.w	#DSP_TransientCoeff1_L, &OP2L			;
-;						mov.w	#DSP_TransientCoeff1_H, &OP2H			;
-;						mov.w	&RES0, R12								; this word contains no significant bits.
-;						mov.w	&RES1, R12								;	""				""				""
-;						mov.w	&RES2, &MAIN_FilterTap1+0				;
-;						mov.w	&RES3, &MAIN_FilterTap1+2				;
-;
-;						mov.w	#DSP_TransientCoeff2_L, &OP2L			; FilterIn doesn't need to be loaded again.
-;						mov.w	#DSP_TransientCoeff2_H, &OP2H			;
-;						mov.w	&RES0, R12								; this word contains no significant bits.
-;						mov.w	&RES1, R12								;	""				""				""
-;						mov.w	&RES2, &MAIN_FilterTap2+0				;
-;						mov.w	&RES3, &MAIN_FilterTap2+2				;
-;
-;						; LPF Transients
-;						; Since the transient suppression solution assumes BPF input and output is Cosine at wo
-;						; with amplitude equal to the first sample and matched phase, the X input tap should also just
-;						; have this value (equal to post mix dc + post mix cosine amplitude);
-;						;
-;						; the output tap, approximately, can sit at half this value, since this is the dc value
-;						; post-mix in the assumed case.
-;						mov.w	DSP_FilterIn_L, &MAIN_XFilterTap1+0		;
-;						mov.w	DSP_FilterIn_H, &MAIN_XFilterTap1+2		;
-;						mov.w	DSP_FilterIn_L, &MAIN_XFilterTap2+0		;
-;						mov.w	DSP_FilterIn_H, &MAIN_XFilterTap2+2		;
-;						rra.w	&MAIN_XFilterTap2+2						; divide by 2
-;						rrc.w	&MAIN_XFilterTap2+0						;
-;						; by the same token, the Y input taps should just be zero. todo this is wrong and
-;						; predictably causes large transient. taps should be exactly what they should be filtering
-;						; a 1024 Hz cosine since the original 512 Hz cosine experiences frequency doubling.
-;						;mov.w	#0, &MAIN_YFilterTap1+0;				; these are commented out because they're initialized elsewhere.
-;						;mov.w	#0, &MAIN_YFilterTap1+0;
-;						;mov.w	#0, &MAIN_YFilterTap1+0;
-;						;mov.w	#0, &MAIN_YFilterTap1+0;
-;
-;						jmp		FilterFeedForward						; This is the fastest way to have a special first iteration.
-
 						; * Filter Analysis Loop * =========================================================================================
 						;* Get Next Sample *
-FilterLoopStart:		mov.w	#MPYM1, &MPY32CTL0						; Configure MPY for 16 bit signed multiplication.
+DSP_LoopStart:			mov.w	#MPYM1, &MPY32CTL0						; Configure MPY for 16 bit signed multiplication.
 						movx.w	@DSP_InputPointer, &MPYS				; Load 1st operand, current input sample.
 						mov.w 	#0x2000, &OP2							; Load 2nd operand, 2^13 (left-shift MSB 13 places).
 						mov.w	&RES0, DSP_FilterIn_L					;
@@ -191,7 +132,7 @@ FilterLoopStart:		mov.w	#MPYM1, &MPY32CTL0						; Configure MPY for 16 bit signe
 						mov.w   #OP2_32+OP1_32+MPYM0+MPYFRAC, &MPY32CTL0; Configure MPY for 32 bit signed multiplication for subsequent steps.
 
 						; * LWDBPF Block 1  (Type 1) * =====================================================================================
-FilterFeedForward:		mov.w	&MAIN_FilterTap2+0, DSP_Temp1_L			; Load the taps into temp memory and Out1
+						mov.w	&MAIN_FilterTap2+0, DSP_Temp1_L			; Load the taps into temp memory and Out1
 						mov.w	&MAIN_FilterTap2+2, DSP_Temp1_H			;	""				""
 						mov.w	&MAIN_FilterTap1+0, DSP_BlockOut1_L		;
 						mov.w	&MAIN_FilterTap1+2, DSP_BlockOut1_H		;
@@ -243,11 +184,15 @@ FilterFeedForward:		mov.w	&MAIN_FilterTap2+0, DSP_Temp1_L			; Load the taps into
 						rra.w	DSP_FilterOut_H							; FilterOut = FilterOut / 2;
 						rrc.w	DSP_FilterOut_L							;
 
-						; * Mixer Prep * ===================================================================================================
+						; * Register Inventory * ===========================================================================================
+						; LWDBF Output in R6,R7
+						; R4, R5, and R14 are reserved for indexing.
+						; R15 reserved for stacking.
+						; R8,9,10,11,12,13 are available.
+
+						; * X Mixer Prep * =================================================================================================
 						mova	#MAIN_LockInXRef+0, DSP_XRefPointer		; Calculate address to current discrete-time sample
-						mova	#MAIN_LockInYRef+0, DSP_YRefPointer		; of X and Y reference signals.
-						adda	DSP_j, DSP_XRefPointer					;
-						adda	DSP_j, DSP_YRefPointer					;
+						adda	DSP_j, DSP_XRefPointer					; Add current offset to start of XRef Array.
 
 						; * X Mixer Side * =================================================================================================
 						mov.w	DSP_FilterOut_L, &MPYS32L				; Calculate Mixers. X Side first
@@ -294,6 +239,10 @@ FilterFeedForward:		mov.w	&MAIN_FilterTap2+0, DSP_Temp1_L			; Load the taps into
 						rlc.w	DSP_XFilt_H								;
 						mov.w	DSP_XFilt_H, &MAIN_XOut+0				; Move the upper 16 bits to the output, R12.
 
+						; * Y Mixer Prep * =================================================================================================
+						mova	#MAIN_LockInYRef+0, DSP_YRefPointer		; Calculate address to current discrete-time sample
+						adda	DSP_j, DSP_XRefPointer					; Add current offset to start of YRef Array.
+
 						; * Y Mixer Side * =================================================================================================
 						mov.w	DSP_FilterOut_L, &MPYS32L				; Calculate Y Side second
 						mov.w	DSP_FilterOut_H, &MPYS32H				;
@@ -339,39 +288,56 @@ FilterFeedForward:		mov.w	&MAIN_FilterTap2+0, DSP_Temp1_L			; Load the taps into
 						rlc.w	DSP_YFilt_H								;
 						mov.w	DSP_YFilt_H, &MAIN_YOut+0				; Move the upper 16 bits to the output, R12.
 
+						; * Register Inventory * ===========================================================================================
+						; LWDBF Output in R6,R7
+						; R4, R5, and R14 are reserved for indexing.
+						; R15 reserved for debugging.
+						; Xout stored in RAM
+						; Yout stored in RAM
+						; R8,9,10,11,12,13 are available.
+
 						; * Accumulate * ===================================================================================================
-						; All registers are fair game at this point execpt addresses and iterators.
-						mov.w	&MAIN_XOut+0, R12;						;
-						tst.w	R12										;
-						jn		FilterXOutNeg							;
+						mov.w	&MAIN_XOut+0, R8
+						mov.w	&MAIN_YOut+0, R9
+						mov.w	&MAIN_XAcc+0, R10
+						mov.w	&MAIN_XAcc+2, R11
+						mov.w 	&MAIN_YAcc+0, R12
+						mov.w	&MAIN_YAcc+2, R13
 
-						add.w	&MAIN_XOut+0, &MAIN_XAcc+0				; Positive Case
-						addc.w	#0, &MAIN_XAcc+2						;
-						jmp		FilterYOut
+						tst.w	R8
+						jn		DSP_XNeg
 
-FilterXOutNeg:			add.w	&MAIN_XOut+0, &MAIN_XAcc+0				; Negative Case
-						addc.w	#0xFFFF, &MAIN_XAcc+2					; 0xFFFF acts as sign extension of 16 bit number.
+DSP_XPos:				add.w	R8,R10
+						addc.w	#0,R11
+						jmp		DSP_Y
 
-FilterYOut:				mov.w 	&MAIN_YOut+0, R12						;
-						tst.w	R12
-						jn		FilterYOutNeg							;
+DSP_XNeg:				add.w	R8,R10
+						addc.w	#0xFFFF,R11
 
-						add.w	&MAIN_YOut+0, &MAIN_YAcc+0				; Positive Case
-						addc.w	#0, &MAIN_YAcc+2						;
-						jmp		FilterLoopHandle						;
+DSP_Y:					tst.w	R9
+						jn		DSP_YNeg
 
-FilterYOutNeg:			add.w	&MAIN_YOut+0, &MAIN_YAcc+0				; Negative Case
-						addc.w	#0xFFFF, &MAIN_YAcc+2					; 0xFFFF acts as sign extension of 16 bit number.
+DSP_YPos:				add.w	R9,R12
+						addc.w	#0,R13
+						jmp		DSP_Acc
+
+DSP_YNeg:				add.w	R9,R12
+						addc.w	#0xFFFF,R13
+
+DSP_Acc:				mov.w	R10, &MAIN_XAcc+0
+						mov.w	R11, &MAIN_XAcc+2
+						mov.w	R12, &MAIN_YAcc+0
+						mov.w	R13, &MAIN_YAcc+2
 
 						; * Loop Handling * ================================================================================================
-FilterLoopHandle:		incdx.a DSP_InputPointer						; Point R5 to the next input sample.
+DSP_LoopHandle:			incdx.a DSP_InputPointer						; Point R5 to the next input sample.
 
 						incdx.a DSP_j									; j++++
 						incdx.a DSP_j									; j++++
 						andx.a	#60, DSP_j								; j = [0,60]. Works because 64 masks to 0, making & equiv. to %
 
 						dec.w	DSP_i									; i--
-						jnz		FilterLoopStart							; if i != 0, go back to start of loop
+						jnz		DSP_LoopStart							; if i != 0, go back to start of loop
 
 						;* Post-loop computations * ========================================================================================
 						mov.w   #OP2_32+OP1_32+MPYM0, &MPY32CTL0		; Configure MPY for calculating average.

@@ -5,7 +5,7 @@
  *  Created on: Apr 29, 2023
  *      Author: Kyle Park
  *
- *      Copyright © 2023-2024 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
+ *      Copyright © 2023-2025 by Kyle Park. This work is licensed under the Creative Commons 4.0 Attribution (CC BY 4.0) International
  *      License (https://creativecommons.org/licenses/by/4.0/). This permits use, adaptation, distribution, and reproduction provided
  *      users cite the materials appropriately, provide a link to the Creative Commons license, and clearly indicate the changes that
  *      were made to the original content. No warranties are provided under this license.
